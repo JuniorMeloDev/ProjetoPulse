@@ -4,7 +4,8 @@ import { authOptions } from './api/auth/[...nextauth]'
 
 export default function teste({user}) {
     return (
-        <div>Usuario logado
+        <div>
+            <h1>Usuario logado</h1>
             <pre>{JSON.stringify(user, null, 2)}</pre>
         </div>
         
