@@ -1,8 +1,8 @@
-import NextAuth from "next-auth/next";
+import NextAuth, { getServerSession } from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+export const authOptions = {
 
-export default NextAuth({
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -25,6 +25,12 @@ export default NextAuth({
       },
     }),
   ],
-  });
+  }
+
+export default NextAuth(authOptions);
+
+export const getServerAuthSession = (req, res) => {
+  return getServerSession(req, res, authOptions)
+}
 
  

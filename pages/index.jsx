@@ -40,8 +40,7 @@ export default function Home() {
             LOGIN
           </button>
         </form>
-        <h1>Satus: {status}</h1>
-        <Link href="/api/auth/signin">Vá para a pagina de login</Link>
+        <h1>Status: {status}</h1>
       </div>
     </div>
 
