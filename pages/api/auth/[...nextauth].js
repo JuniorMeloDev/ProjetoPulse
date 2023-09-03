@@ -1,35 +1,43 @@
-import NextAuth, { getServerSession } from "next-auth/next";
-import CredentialsProvider from "next-auth/providers/credentials";
+import NextAuth, { getServerSession } from 'next-auth/next';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
 export const authOptions = {
   providers: [
     CredentialsProvider({
-      name: "credentials",
+      name: 'credentials',
       credentials: {
-        email: { label: "email", type: "email" },
-        senha: { label: "password", type: "password" },
+        email: {
+          label: 'email',
+          type: 'email',
+        },
+        senha: {
+          label: 'password',
+          type: 'password',
+        },
       },
       // credenciais cadastradas no banco (mesmos nomes que consta lá)
       async authorize(credentials, req) {
-        const res = await fetch('http://localhost:8080/auth/login', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ 
-            email: credentials?.email,
-            senha: credentials?.senha
-          }),
-          //faz a requisição no banco de dados onde tem os cadastros dos usuarios (POST)
-      });
-      const user = await res.json()
+        const res = await fetch(
+          'http://localhost:8080/auth/login',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: credentials?.email,
+              senha: credentials?.senha,
+            }),
+            //faz a requisição no banco de dados onde tem os cadastros dos usuarios (POST)
+          }
+        );
+        const user = await res.json();
 
-      if (user) {
-        return user;
-      } else {
-        return null;
-     }
-
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
       },
     }),
   ],
@@ -44,8 +52,8 @@ export const authOptions = {
     },
 
     pages: {
-      signIn: "/", 
-      error: "/", 
+      signIn: '/',
+      error: '/',
     },
   },
   secret: process.env.SECRET,

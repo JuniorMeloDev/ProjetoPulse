@@ -1,23 +1,26 @@
-import '@/styles/globals.css'
+import '../styles/globals.css'
 
 import { SessionProvider, useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
-  return (
-    <SessionProvider session={session}>
-      {Component.auth ? (
-        <Auth>
-          <Component {...pageProps} />
-        </Auth>
-      ) : (
-        <Component {...pageProps} />
-      )}
-    </SessionProvider>
-  )
-}
 
+  return (
+    <div>
+      <SessionProvider session={session}>
+        {Component.auth ? (
+          <Auth>
+            <Component {...pageProps} />
+          </Auth>
+        ) : (
+          <Component {...pageProps} />
+        )}
+      </SessionProvider>
+    </div>
+  )
+
+}
 
 function Auth({ children }) {
   const router = useRouter()
@@ -28,7 +31,7 @@ function Auth({ children }) {
   useEffect(() => {
     if (!loading) {
       if (!isUser) {
-        router.push('/')
+        router.push('/home')
       }
     }
   }, [isUser, loading])
