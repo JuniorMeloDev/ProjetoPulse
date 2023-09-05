@@ -15,7 +15,7 @@ export default function Login() {
 
   async function handleSignIn(e) {
     e.preventDefault()
-    signIn('credentials', { email, senha, callbackUrl: '/home' })
+    signIn('credentials', { email, senha, callbackUrl: '/alunos/home' })
     // a função serve para validar o email e redireciona para a pagina logado
 
     const response = await fetch('http://localhost:8080/listar/users', {
@@ -54,6 +54,9 @@ export default function Login() {
             <button type="submit" className={styles.btn}>
               LOGIN
             </button>
+            <div>
+              {/* {error && <span>{error}</span>} */}
+            </div>
           </div>
         </form>
         <h1>Status:{status} </h1>

@@ -31,7 +31,7 @@ function Auth({ children }) {
   useEffect(() => {
     if (!loading) {
       if (!isUser) {
-        router.push('/home')
+        router.push('/alunos/home')
       }
     }
   }, [isUser, loading])

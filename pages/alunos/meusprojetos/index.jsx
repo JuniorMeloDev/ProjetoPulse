@@ -1,11 +1,12 @@
-import Layout from "../../components/Layout";
+import Projetos from "@/components/professores/Projetos";
+import Layout from "../../../components/Layout";
 
 export default function MeusProjetos() {
     return (
         
         <Layout>
         <div>
-            <h1>Projetos</h1>
+            <Projetos/>
         </div>
         </Layout>
     )
