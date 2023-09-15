@@ -31,7 +31,7 @@ function Auth({ children }) {
   useEffect(() => {
     if (!loading) {
       if (!isUser) {
-        router.push('/alunos/home')
+        router.push('/') // se o usuario não estiver logado, ele cai na tela principal
       }
     }
   }, [isUser, loading])

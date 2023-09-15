@@ -17,6 +17,7 @@ export const authOptions = {
       },
       // credenciais cadastradas no banco (mesmos nomes que consta lá)
       async authorize(credentials, req) {
+        console.log('Credenciais Recebidas:', credentials)
         const res = await fetch(
           'http://localhost:8080/auth/login',
           {
@@ -31,6 +32,7 @@ export const authOptions = {
             //faz a requisição no banco de dados onde tem os cadastros dos usuarios (POST)
           }
         );
+
         const user = await res.json();
 
         if (user) {
@@ -53,10 +55,9 @@ export const authOptions = {
 
     pages: {
       signIn: '/',
-      error: '/',
     },
   },
-  secret: process.env.SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export default NextAuth(authOptions);

@@ -6,6 +6,7 @@ import { BiHelpCircle } from 'react-icons/bi'
 import { IoIosNotificationsOutline } from 'react-icons/io'
 import { RxExit } from 'react-icons/rx'
 import { VscNotebook } from 'react-icons/vsc'
+import User from './usuarios/user'
 
 export default function Sidebar(props) {
 	return (
@@ -65,7 +66,8 @@ export default function Sidebar(props) {
 				<div className="flex items-center p-2 space-x-4 pt-20">
 					<img src="https://source.unsplash.com/100x100/?portrait" alt="foto de perfil" className="w-12 h-12 rounded-full dark:bg-gray-500" />
 					<div>
-						<h2 className="text-lg font-semibold">{props.nome}</h2>
+						<User/>
+						{/* <h2 className="text-lg font-semibold">{props.nome}nome do usuario</h2> */}
 						<span className="flex items-center space-x-1">
 							<a rel="noopener noreferrer" href="#" className="text-xs hover:underline dark:text-gray-400">View profile</a>
 						</span>

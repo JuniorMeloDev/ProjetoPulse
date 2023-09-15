@@ -1,31 +1,45 @@
+'use client'
+
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useState } from "react";
 import styles from "../styles/login.module.css";
 import { FiLock } from "react-icons/fi"
 import { AiOutlineMail } from "react-icons/ai"
+import { useRouter } from 'next/navigation'
 
 
 
 export default function Login() {
-  const { session, status } = useSession();
+  const { data: session, status } = useSession();
+  const router = useRouter()
 
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   // serve para preecher o formulario do email e senha
+  const [error, setError] = useState()
+
 
   async function handleSignIn(e) {
-    e.preventDefault()
-    signIn('credentials', { email, senha, callbackUrl: '/alunos/home' })
-    // a função serve para validar o email e redireciona para a pagina logado
-
-    const response = await fetch('http://localhost:8080/listar/users', {
-      method: "Get",
-      headers: {
-        authorization: `bearer ${session?.user.accessToken}`,
-      },
+    e.preventDefault();
+  
+    try {
+      const result = await signIn('credentials', {
+      redirect: false, // não é redirecioando para outra pagina. mostra o erro na propria tela do login
+      email,
+      senha,
     });
-    // constante responsavel por pegar do banco de dados as informações dos usuarios ja cadastrados (GET). o 'bearer' é para acesso com o JWT
-  };
+
+    console.log('[LOGIN_RESPONSE]: ', result)
+
+    if (!result?.error) {
+      router.push('/alunos/home')
+    } else {
+      setError('Email ou senha inválidos')
+    }
+  } catch (error) {
+    console.log('[LOGIN_ERROR]: ', error)
+  }
+}
 
   return (
     <div>
@@ -50,13 +64,11 @@ export default function Login() {
               onChange={e => setSenha(e.target.value)}
             />
           </div>
+            {error && <span className="text-red-400 text-lg text-center block mt-2">{error}</span>} 
           <div className="flex items-center justify-center">
             <button type="submit" className={styles.btn}>
               LOGIN
             </button>
-            <div>
-              {/* {error && <span>{error}</span>} */}
-            </div>
           </div>
         </form>
         <h1>Status:{status} </h1>
