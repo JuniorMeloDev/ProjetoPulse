@@ -18,6 +18,10 @@ export const authOptions = {
       // credenciais cadastradas no banco (mesmos nomes que consta lá)
       async authorize(credentials, req) {
         console.log('Credenciais Recebidas:', credentials)
+        if (!credentials.email && !credentials.senha) {
+          throw new Error('invalidos')
+        }
+
         const res = await fetch(
           'http://localhost:8080/auth/login',
           {
@@ -31,7 +35,7 @@ export const authOptions = {
             }),
             //faz a requisição no banco de dados onde tem os cadastros dos usuarios (POST)
           }
-        );
+       );
 
         const user = await res.json();
 
@@ -40,6 +44,35 @@ export const authOptions = {
         } else {
           return null;
         }
+
+       // const url = `${process.env.BASEURL}/auth/login`
+
+        // return await fetch(url, {
+        //       method: 'POST',
+        //       headers: {
+        //         'Content-Type': 'application/json'},
+        //       body: JSON.stringify({
+        //           email: credentials.email,
+        //           senha: credentials.senha,
+        //       })
+        //       .then((response) => response.json())
+        //       .then(res => {
+        //         const authorization = {id: res.token}
+        //         console.log(authorization)
+
+        //         if(authorization) {
+        //           return authorization
+        //         }else {
+        //           throw new Error("usuario nao encontrado")
+        //         }
+        //       })
+        //       .catch(() => {
+        //         throw new Error('Ocorreu um erro inesperado')
+        //       })
+              
+        //       })
+            
+        
       },
     }),
   ],

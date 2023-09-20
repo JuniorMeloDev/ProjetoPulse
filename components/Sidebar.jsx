@@ -8,7 +8,7 @@ import { RxExit } from 'react-icons/rx'
 import { VscNotebook } from 'react-icons/vsc'
 import User from './usuarios/user'
 
-export default function Sidebar(props) {
+export default function Sidebar() {
 	return (
 		<div>
 			<div className="h-full p-3 space-y-2 w-60 dark:bg-gray-900 dark:text-gray-100">

@@ -1,21 +1,25 @@
 import React, { useState } from 'react'
+import { useSession } from "next-auth/react";
 
 
 export default function CadastroProjetos({ isOpen, onClose }) {
 
     if (!isOpen) return null;
 
-    const token = 'appPulse'
+    const { data: session } = useSession();
+
+    const token = JSON.stringify(session.user.token)// constante que usa o token da sessão 
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [projeto, setProjeto] = useState({
-        nome: '',
-        vagas: 0,
-        // dataInicio: '',
-        // dataFim: '',
+        titulo: '',
         descricao: '',
-        requisitos: '',
+        requisito: '',
+        vagas: 0,
+        tipo: '',
+        dataInicial: '',
+        dataFinal: '',
     });
 
     const openModal = () => {
@@ -33,29 +37,32 @@ export default function CadastroProjetos({ isOpen, onClose }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await fetch('http://localhost:8080/projeto/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify(projeto),
-        })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Erro na requisição');
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log('Dados enviados com sucesso:', data);
+        try { //verificando os erros do pq a requisição não pega
+            console.log('Enviando requisição para o servidor...');
+            console.log('Token:', token); // Verifica se o token está correto
+            console.log('Projeto a ser enviado:', projeto); // Verifica se os dados do projeto estão corretos
 
-                // Feche o modal após o envio bem-sucedido
-                closeModal();
+            const response = await fetch('http://localhost:8080/projeto/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify(projeto),
             })
-            .catch((error) => {
-                console.error('Erro ao enviar os dados:', error);
-            });
+
+            // if (!response.ok) {
+            //     throw new Error('Erro na requisição');
+            // }
+
+            const data = await response.json();
+            console.log('Dados enviados com sucesso:', data);
+
+            // Feche o modal após o envio bem-sucedido
+            closeModal();
+        } catch (error) {
+            console.error('Erro ao enviar os dados:', error);
+        }
     };
 
     return (
@@ -79,8 +86,8 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                 </label>
                                 <input
                                     type="text"
-                                    name="nome"
-                                    value={projeto.nome}
+                                    name="titulo"
+                                    value={projeto.titulo}
                                     onChange={handleChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
@@ -97,14 +104,14 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            {/* <div className="mb-4">
+                            <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2">
                                     Data de Início:
                                 </label>
                                 <input
                                     type="date"
-                                    name="dataInicio"
-                                    value={projeto.dataInicio}
+                                    name="dataInicial"
+                                    value={projeto.dataInicial}
                                     onChange={handleChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
@@ -115,12 +122,12 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                 </label>
                                 <input
                                     type="date"
-                                    name="dataFim"
-                                    value={projeto.dataFim}
+                                    name="dataFinal"
+                                    value={projeto.dataFinal}
                                     onChange={handleChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
-                            </div> */}
+                            </div>
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2">
                                     Descrição do Projeto:
@@ -139,12 +146,32 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                 </label>
                                 <input
                                     type="text"
-                                    name="requisitos"
-                                    value={projeto.requisitos}
+                                    name="requisito"
+                                    value={projeto.requisito}
                                     onChange={handleChange}
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
+                            <div className="mb-4">
+                                <label className="block text-gray-700 text-sm font-bold mb-2">
+                                    Tipo do Projeto:
+                                </label>
+                                <input
+                                    type="text"
+                                    name="tipo"
+                                    value={projeto.tipo}
+                                    onChange={handleChange}
+                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                />
+                            </div>
+                            {/* <div className="mb-4">
+                                <label className=" text-gray-700 text-sm font-bold mb-2">Tipo do Projeto</label>
+                                <select name='tipo' onChange={handleChange} value={projeto.tipo} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option>Selecione um opção</option>
+                                    <option>BACKEND</option>
+                                    <option>FRONTEND</option>
+                                </select>
+                            </div> */}
                             <div className="flex items-center justify-end">
                                 <button
                                     type="submit"
