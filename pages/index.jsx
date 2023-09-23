@@ -13,6 +13,7 @@ export default function Login() {
   const { data: session, status } = useSession();
   const router = useRouter()
 
+
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   // serve para preecher o formulario do email e senha
@@ -28,8 +29,6 @@ export default function Login() {
       email,
       senha,
     });
-
-    console.log('[LOGIN_RESPONSE]: ', result)
 
     if (!result?.error) {
       router.push('/alunos/home')

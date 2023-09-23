@@ -44,34 +44,7 @@ export const authOptions = {
         } else {
           return null;
         }
-
-       // const url = `${process.env.BASEURL}/auth/login`
-
-        // return await fetch(url, {
-        //       method: 'POST',
-        //       headers: {
-        //         'Content-Type': 'application/json'},
-        //       body: JSON.stringify({
-        //           email: credentials.email,
-        //           senha: credentials.senha,
-        //       })
-        //       .then((response) => response.json())
-        //       .then(res => {
-        //         const authorization = {id: res.token}
-        //         console.log(authorization)
-
-        //         if(authorization) {
-        //           return authorization
-        //         }else {
-        //           throw new Error("usuario nao encontrado")
-        //         }
-        //       })
-        //       .catch(() => {
-        //         throw new Error('Ocorreu um erro inesperado')
-        //       })
-              
-        //       })
-            
+      
         
       },
     }),

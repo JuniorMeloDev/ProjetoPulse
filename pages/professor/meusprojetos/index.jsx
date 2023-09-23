@@ -8,6 +8,7 @@ export default function MeusProjetos() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -16,10 +17,11 @@ export default function MeusProjetos() {
     setIsModalOpen(false);
   };
 
+
   return (
     <div>
       <Layout>
-      <h1 className="text-3xl font-semibold">Minha Página</h1>
+      <h1 className="text-3xl font-semibold">Meus projetos</h1>
       <button
         onClick={openModal}
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"

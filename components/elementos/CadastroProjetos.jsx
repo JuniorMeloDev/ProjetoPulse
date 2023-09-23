@@ -1,15 +1,13 @@
-import React, { useState } from 'react'
-import { useSession } from "next-auth/react";
+'use client'
 
+import React, { useState } from 'react'
 
 export default function CadastroProjetos({ isOpen, onClose }) {
 
     if (!isOpen) return null;
 
-    const { data: session } = useSession();
-
-    const token = JSON.stringify(session.user.token)// constante que usa o token da sessão 
-
+    const token = JSON.parse(localStorage.getItem('token'))// pegando o token do localStorage
+    
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [projeto, setProjeto] = useState({
@@ -27,7 +25,9 @@ export default function CadastroProjetos({ isOpen, onClose }) {
     };
 
     const closeModal = () => {
+        console.log('Fechando modal...')
         setIsModalOpen(false);
+       
     };
 
     const handleChange = (e) => {
@@ -42,7 +42,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
             console.log('Token:', token); // Verifica se o token está correto
             console.log('Projeto a ser enviado:', projeto); // Verifica se os dados do projeto estão corretos
 
-            const response = await fetch('http://localhost:8080/projeto/register', {
+            const response = await fetch('http://localhost:8080/projeto/registrar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -51,10 +51,6 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                 body: JSON.stringify(projeto),
             })
 
-            // if (!response.ok) {
-            //     throw new Error('Erro na requisição');
-            // }
-
             const data = await response.json();
             console.log('Dados enviados com sucesso:', data);
 
@@ -62,6 +58,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
             closeModal();
         } catch (error) {
             console.error('Erro ao enviar os dados:', error);
+            closeModal()
         }
     };
 
@@ -152,26 +149,14 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2">
-                                    Tipo do Projeto:
-                                </label>
-                                <input
-                                    type="text"
-                                    name="tipo"
-                                    value={projeto.tipo}
-                                    onChange={handleChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                />
-                            </div>
-                            {/* <div className="mb-4">
+                             <div className="mb-4">
                                 <label className=" text-gray-700 text-sm font-bold mb-2">Tipo do Projeto</label>
                                 <select name='tipo' onChange={handleChange} value={projeto.tipo} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option>Selecione um opção</option>
                                     <option>BACKEND</option>
                                     <option>FRONTEND</option>
                                 </select>
-                            </div> */}
+                            </div>
                             <div className="flex items-center justify-end">
                                 <button
                                     type="submit"

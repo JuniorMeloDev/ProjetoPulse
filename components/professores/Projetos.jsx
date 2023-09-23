@@ -2,7 +2,7 @@ import React from 'react'
 import BarraDePesquisa from '../elementos/BarraDePesquisa'
 import Paginacao from '../elementos/Paginacao'
 
-export default function Projetos() {
+export default function ProjetosProf() {
     return (
         <div>
             <BarraDePesquisa />
