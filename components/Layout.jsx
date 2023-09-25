@@ -1,6 +1,7 @@
 import React from "react";
 import Sidebar from "./Sidebar";
 
+
 const Layout = ({ children }) => {
     return (
         <div className="bg-gray-300 h-screen flex flex-row justify-start">

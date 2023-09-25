@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 import Layout from '@/components/Layout'
-import CadastroProjetos from '@/components/elementos/CadastroProjetos'
+import CadastroProjetos from '@/components/professores/CadastroProjetos'
 
 
 export default function MeusProjetos() {

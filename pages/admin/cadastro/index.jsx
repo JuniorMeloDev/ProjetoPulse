@@ -1,14 +1,11 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useSession } from "next-auth/react"; 
-import styles from '../../styles/login.module.css'
+import styles from '../../../styles/login.module.css'
 
-export default function Cadastro() {
+export default function CadastroUsuario() {
 
-    // const { data: session } = useSession();
-
-    // const token = JSON.stringify(session.user.token)// constante que usa o token da sessão 
+    const token = JSON.parse(localStorage.getItem('token'))
 
     const [usuario, setUsuario] = useState({
         nome: "",
@@ -26,12 +23,13 @@ export default function Cadastro() {
         try {
             console.log('Enviando requisição para o servidor...');
             console.log('Token:', token); // Verifica se o token está correto
-            console.log('Projeto a ser enviado:', projeto); // Verifica se os dados do projeto estão corretos
+            console.log('Usuario a ser enviado:', usuario); // Verifica se os dados do projeto estão corretos
 
             const response = await fetch('http://localhost:8080/auth/cadastrar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(usuario),
             })
@@ -93,3 +91,5 @@ export default function Cadastro() {
         </div>
     )
 }
+
+CadastroUsuario.auth = true

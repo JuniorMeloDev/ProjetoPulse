@@ -1,8 +1,9 @@
 import React from 'react'
 
 import Layout from '../../../components/Layout'
-import Projetos from '../../../components/alunos/Projetos'
 import { useSession } from 'next-auth/react'
+import MeusProjetos from '@/components/MeusProjetos'
+
 
 export default function Home() {
 
@@ -12,7 +13,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <Projetos/>
+      <MeusProjetos />
     </Layout>
   )
 }

@@ -40,7 +40,7 @@ export const authOptions = {
         const user = await res.json();
 
         if (user) {
-          return user;
+          return { ...user};
         } else {
           return null;
         }

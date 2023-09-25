@@ -1,14 +1,14 @@
 
 import Layout from "../../../components/Layout";
-import ProjetosProf from "@/components/professores/Projetos";
+
 
 export default function MeusProjetos() {
     return (
-        
+
         <Layout>
-        <div>
-            <ProjetosProf/>
-        </div>
+            <div>
+                Projetos que estou participando
+            </div>
         </Layout>
     )
 }
