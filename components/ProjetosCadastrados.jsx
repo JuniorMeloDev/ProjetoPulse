@@ -7,6 +7,8 @@ import ProjetoCard from './ProjetoCard';
 function MeusProjetos() {
     const [projetos, setProjetos] = useState([]);
     const [projetosFiltrados, setProjetosFiltrados] = useState([]);
+    const [paginaCorrente, setpaginaCorrente] = useState(1); //inicia na pagina 1
+    const projetosPaginas = 4; // quantos serão visualizados por página
 
     const token = JSON.parse(localStorage.getItem('token'));
 
@@ -34,29 +36,36 @@ function MeusProjetos() {
         }
 
         fetchProjetos();
-    }, [token]); // Adicionei [token] como dependência para reagir a mudanças no token
+    }, [token]); 
 
-    const handleSearch = ({ nomeProjeto, tipoProjeto, descricaoProjeto, requisitoProjeto }) => {
+// funcão para pesquisar projetos pelo titulo, descrição ou requisitos
+    const handleSearch = ({ buscaProjeto, tipoProjeto }) => { 
         const projetosFiltrados = projetos.filter(projeto => {
-            const matchNomeProjeto = nomeProjeto ? projeto.titulo.toLowerCase().includes(nomeProjeto.toLowerCase()) : true;
+            const matchBuscaProjeto = buscaProjeto ? projeto.titulo.toLowerCase().includes(buscaProjeto.toLowerCase()) ||
+                projeto.descricao.toLowerCase().includes(buscaProjeto.toLowerCase()) ||
+                projeto.requesito.toLowerCase().includes(buscaProjeto.toLowerCase()) : true;
             const matchTipoProjeto = tipoProjeto !== 'Selecione' ? projeto.tipo.toLowerCase() === tipoProjeto.toLowerCase() : true;
-            const matchDescricaoProjeto = descricaoProjeto ? projeto.descricao.toLowerCase().includes(descricaoProjeto.toLowerCase()) : true;
-            const matchRequisitoProjeto = requisitoProjeto ? projeto.requesito.toLowerCase().includes(requisitoProjeto.toLowerCase()) : true;
-    
-            return matchNomeProjeto && matchTipoProjeto && matchDescricaoProjeto && matchRequisitoProjeto;
+
+            return matchBuscaProjeto && matchTipoProjeto;
         });
-    
+
         setProjetosFiltrados(projetosFiltrados);
+        setpaginaCorrente(1); // Resetando para a primeira página ao realizar uma nova busca
     };
-    
-    
+
+    // constantes para uso de paginação. junto com o componente 'Paginação.JSX'
+    const indexOfLastProject = paginaCorrente * projetosPaginas;
+    const indexOfFirstProject = indexOfLastProject - projetosPaginas;
+    const currentProjects = projetosFiltrados.slice(indexOfFirstProject, indexOfLastProject);
+
+    const paginate = (pageNumber) => setpaginaCorrente(pageNumber);
 
     return (
         <div>
             <BarraDePesquisa onSearch={handleSearch} />
             <div className='grid grid-cols-4 gap-3 mt-4' >
-                {projetosFiltrados.length > 0 ? (
-                    projetosFiltrados.map(projeto => (
+                {currentProjects.length > 0 ? (
+                    currentProjects.map(projeto => (
                         <ProjetoCard key={projeto.id} projeto={projeto} />
                     ))
                 ) : (
@@ -67,6 +76,11 @@ function MeusProjetos() {
                     )
                 )}
             </div>
+            <Paginacao 
+                projetosPaginas={projetosPaginas} 
+                totalProjects={projetosFiltrados.length} 
+                paginate={paginate} 
+            />
         </div>
     );
 }

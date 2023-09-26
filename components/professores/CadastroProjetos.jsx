@@ -1,4 +1,3 @@
-'use client'
 
 import React, { useState } from 'react'
 
@@ -66,9 +65,8 @@ export default function CadastroProjetos({ isOpen, onClose }) {
         <div className="fixed inset-0 flex items-center justify-center z-50">
             <div className="modal-overlay absolute w-full h-full">
                 <div className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-                    <div className="modal-content py-4 text-left px-6">
-                        <div className="flex justify-between items-center pb-3">
-                            <p className="text-2xl font-bold">Novo Projeto</p>
+                    <div className="modal-content py-1 text-left px-6">
+                        <div className="flex justify-end items-center">
                             <button
                                 onClick={onClose}
                                 className="text-gray-500 hover:text-gray-800 focus:outline-none"
@@ -86,7 +84,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     name="titulo"
                                     value={projeto.titulo}
                                     onChange={handleChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
                             <div className="mb-4">
@@ -98,7 +96,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     name="vagas"
                                     value={projeto.vagas}
                                     onChange={handleChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
                             <div className="mb-4">
@@ -110,7 +108,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     name="dataInicial"
                                     value={projeto.dataInicial}
                                     onChange={handleChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
                             <div className="mb-4">
@@ -122,7 +120,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     name="dataFinal"
                                     value={projeto.dataFinal}
                                     onChange={handleChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
                             <div className="mb-4">
@@ -134,7 +132,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     name="descricao"
                                     value={projeto.descricao}
                                     onChange={handleChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
                             <div className="mb-4">
@@ -146,7 +144,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     name="requisito"
                                     value={projeto.requisito}
                                     onChange={handleChange}
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
                              <div className="mb-4">
@@ -160,7 +158,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                             <div className="flex items-center justify-end">
                                 <button
                                     type="submit"
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline"
                                 >
                                     Salvar
                                 </button>

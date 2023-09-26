@@ -2,7 +2,7 @@ import React from 'react'
 
 import Layout from '../../../components/Layout'
 import { useSession } from 'next-auth/react'
-import MeusProjetos from '@/components/MeusProjetos'
+import MeusProjetos from '@/components/ProjetosCadastrados'
 
 
 export default function Home() {

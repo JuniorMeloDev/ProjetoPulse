@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 
 export default function BarraDePesquisa({ onSearch }) {
-  const [nomeProjeto, setNomeProjeto] = useState('');
+  const [buscaProjeto, setNomeProjeto] = useState('');
   const [tipoProjeto, setTipoProjeto] = useState('Selecione');
+
 
   const handleSearch = (e) => {
     e.preventDefault();
 
     // Chame a função de busca passando os valores
-    onSearch({ nomeProjeto, tipoProjeto });
+    onSearch({ buscaProjeto, tipoProjeto});
   };
 
   return (
@@ -24,7 +25,7 @@ export default function BarraDePesquisa({ onSearch }) {
               className="text-base text-gray-400 flex-grow outline-none px-2"
               type="text"
               placeholder="Digite o nome do projeto"
-              value={nomeProjeto}
+              value={buscaProjeto   }
               onChange={(e) => setNomeProjeto(e.target.value)}
             />
             <div className="ms:flex items-center px-2 rounded-lg space-x-4 mx-auto">

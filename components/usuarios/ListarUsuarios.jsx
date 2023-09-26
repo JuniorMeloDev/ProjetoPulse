@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 
 export default function Home() {
 
-  const {session} = useSession()
+  const {data :session} = useSession()
 
   const [usuarios, setUsuarios] = useState([]);
 

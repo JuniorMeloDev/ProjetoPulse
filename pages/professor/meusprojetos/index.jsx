@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import Layout from '@/components/Layout'
 import CadastroProjetos from '@/components/professores/CadastroProjetos'
@@ -21,14 +21,16 @@ export default function MeusProjetos() {
   return (
     <div>
       <Layout>
-      <h1 className="text-3xl font-semibold">Meus projetos</h1>
-      <button
-        onClick={openModal}
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-      >
-        Novo Projeto
-      </button>
-      <CadastroProjetos isOpen={isModalOpen} onClose={closeModal} />
+       
+        <div className='text-center'>
+          <button
+            onClick={openModal}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
+          >
+            Novo Projeto
+          </button>
+        </div>
+        <CadastroProjetos isOpen={isModalOpen} onClose={closeModal} />
       </Layout>
     </div>
   );
