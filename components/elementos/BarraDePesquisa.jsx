@@ -16,9 +16,9 @@ export default function BarraDePesquisa({ onSearch }) {
     <div className="bg-gray-100 flex justify-center items-center">
       <div className="container mx-auto bg-zinc-400 rounded-lg p-2">
         <form>
-          <h1 className="text-center font-bold text-white text-4xl">Projetos</h1>
+          <h1 className="text-center font-bold text-4xl">Projetos</h1>
           <p className="mx-auto font-normal text-sm my-2 max-w-lg text-center">
-            Pesquise seus projetos cadastrados pelas áreas correspondentes
+            Pesquise os projetos cadastrados pelas áreas correspondentes
           </p>
           <div className="sm:flex items-center bg-white rounded-lg overflow-hidden px-2 py-1 justify-between">
             <input

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 function Paginacao({ projetosPaginas, totalProjects, paginate }) {
+
+    // constante para definir a paginação
     const [currentPage, setCurrentPage] = useState(1);
 
     const numerosPaginas = [];
@@ -16,11 +18,11 @@ function Paginacao({ projetosPaginas, totalProjects, paginate }) {
 
     return (
         <nav>
-            <div className="flex items-center justify-center mt-16 cursor-pointer">
+            <div className="flex items-center justify-center mt-1 cursor-pointer">
                 <ul className='flex gap-2'>
                     <li>
                         <a
-                            href="#"
+                            
                             className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
                         >
                             <span className="sr-only">Prev Page</span>
@@ -47,7 +49,7 @@ function Paginacao({ projetosPaginas, totalProjects, paginate }) {
                     ))}
                     <li>
                         <a
-                            href="#"
+                            
                             className="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
                         >
                             <span className="sr-only">Next Page</span>

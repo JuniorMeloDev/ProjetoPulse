@@ -2,18 +2,12 @@ import React, { useState, useEffect } from 'react';
 import BarraDePesquisa from './elementos/BarraDePesquisa';
 import Paginacao from './elementos/Paginacao';
 import ProjetoCard from './ProjetoCard';
-import FormularioCandidatura from './alunos/FormularioCandidatura'
 
-
-function ProjetosCadastrados() {
+function MeusProjetosCadastrados() {
     const [projetos, setProjetos] = useState([]);
     const [projetosFiltrados, setProjetosFiltrados] = useState([]);
     const [paginaCorrente, setpaginaCorrente] = useState(1); //inicia na pagina 1
-    const projetosPaginas = 8; // quantos serão visualizados por página
-    const [projetoExpandido, setProjetoExpandido] = useState(null);
-    const [mostrarFormulario, setMostrarFormulario] = useState(false);
-   
-
+    const projetosPaginas = 4; // quantos serão visualizados por página
 
     const token = JSON.parse(localStorage.getItem('token'));
 
@@ -65,21 +59,13 @@ function ProjetosCadastrados() {
 
     const paginate = (pageNumber) => setpaginaCorrente(pageNumber);
 
-
     return (
         <div>
             <BarraDePesquisa onSearch={handleSearch} />
             <div className='grid grid-cols-4 gap-3 mt-4' >
                 {currentProjects.length > 0 ? (
                     currentProjects.map(projeto => (
-                        <ProjetoCard
-                         key={projeto.id}
-                         projeto={projeto}
-                         onCandidatar={() => {
-                            setProjetoExpandido(projeto);
-                            setMostrarFormulario(true);
-                        }}
-                        />
+                        <ProjetoCard key={projeto.id} projeto={projeto} />
                     ))
                 ) : (
                     projetos.length > 0 ? (
@@ -94,19 +80,8 @@ function ProjetosCadastrados() {
                 totalProjects={projetosFiltrados.length} 
                 paginate={paginate} 
             />
-    {mostrarFormulario && projetoExpandido && (
-            <FormularioCandidatura
-                projeto={projetoExpandido}
-                onClose={() => setMostrarFormulario(false)}
-                onSubmit={(projetoId, candidatura) => {
-                    // Faça a requisição para candidatar o aluno aqui
-                    console.log(`Enviando candidatura para o projeto ${projetoId}: ${candidatura}`);
-                    // Adicione aqui a lógica para enviar a candidatura
-                }}
-            />
-        )}
-    </div>
-);
+        </div>
+    );
 }
 
-export default ProjetosCadastrados;
+export default MeusProjetosCadastrados;

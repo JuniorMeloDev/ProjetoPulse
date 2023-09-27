@@ -75,7 +75,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                             </button>
                         </div>
                         <form onSubmit={handleSubmit}>
-                            <div className="mb-4">
+                            <div className="mb-3">
                                 <label className="block text-gray-700 text-sm font-bold mb-2">
                                     Nome do Projeto:
                                 </label>
@@ -87,7 +87,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div className="mb-4">
+                            <div className="mb-2">
                                 <label className="block text-gray-700 text-sm font-bold mb-2">
                                     Quantidade de Vagas Disponíveis:
                                 </label>
@@ -99,7 +99,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div className="mb-4">
+                            <div className="mb-2">
                                 <label className="block text-gray-700 text-sm font-bold mb-2">
                                     Data de Início:
                                 </label>
@@ -111,7 +111,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div className="mb-4">
+                            <div className="mb-2">
                                 <label className="block text-gray-700 text-sm font-bold mb-2">
                                     Data de Término:
                                 </label>
@@ -123,11 +123,11 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div className="mb-4">
+                            <div className="mb-2">
                                 <label className="block text-gray-700 text-sm font-bold mb-2">
                                     Descrição do Projeto:
                                 </label>
-                                <input
+                                <textarea
                                     type="text"
                                     name="descricao"
                                     value={projeto.descricao}
@@ -135,11 +135,11 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                            <div className="mb-4">
+                            <div className="mb-2">
                                 <label className="block text-gray-700 text-sm font-bold mb-2">
                                     Requisitos do Projeto:
                                 </label>
-                                <input
+                                <textarea
                                     type="text"
                                     name="requisito"
                                     value={projeto.requisito}
@@ -147,7 +147,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                             <div className="mb-4">
+                             <div className="mb-2">
                                 <label className=" text-gray-700 text-sm font-bold mb-2">Tipo do Projeto</label>
                                 <select name='tipo' onChange={handleChange} value={projeto.tipo} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option>Selecione um opção</option>
