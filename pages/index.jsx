@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation'
 
 
 export default function Login() {
-  const { data: session, status } = useSession();
+  const {dados: session, status } = useSession();
   const router = useRouter()
 
 
@@ -32,6 +32,7 @@ export default function Login() {
 
     if (!result?.error) {
       router.push('/alunos/home')
+  
     } else {
       setError('Email ou senha inválidos')
     }

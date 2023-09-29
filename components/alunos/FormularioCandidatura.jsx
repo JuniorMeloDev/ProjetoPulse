@@ -5,7 +5,9 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
 
     const token = JSON.stringify(localStorage.getItem('token'))
     
-    const [resumoAcademico, setResumoAcademico] = useState('');
+    const [resumoAcademico, setResumoAcademico] = useState({
+        habilidade: '',
+    });
 
     const handleResumoAcademicoChange = (e) => {
         setResumoAcademico(e.target.value);
@@ -49,6 +51,7 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
                         Escreva um pequeno resumo sobre suas experiências acadêmicas, habilidades e conhecimentos:
                     </label>
                     <textarea
+                        required 
                         type="text"
                         value={resumoAcademico}
                         onChange={handleResumoAcademicoChange}

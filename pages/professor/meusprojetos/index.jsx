@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 
 import Layout from '@/components/Layout'
 import CadastroProjetos from '@/components/professores/CadastroProjetos'
+import MeusProjetos from '@/components/ProjetosCadastrados'
 
 
-export default function MeusProjetos() {
+export default function ProjetosProf() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -21,7 +22,7 @@ export default function MeusProjetos() {
   return (
     <div>
       <Layout>
-       
+        <MeusProjetos />
         <div className='text-center'>
           <button
             onClick={openModal}

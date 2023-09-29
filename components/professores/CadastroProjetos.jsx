@@ -80,6 +80,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     Nome do Projeto:
                                 </label>
                                 <input
+                                    required
                                     type="text"
                                     name="titulo"
                                     value={projeto.titulo}
@@ -92,6 +93,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     Quantidade de Vagas Disponíveis:
                                 </label>
                                 <input
+                                    required
                                     type="number"
                                     name="vagas"
                                     value={projeto.vagas}
@@ -104,6 +106,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     Data de Início:
                                 </label>
                                 <input
+                                    required
                                     type="date"
                                     name="dataInicial"
                                     value={projeto.dataInicial}
@@ -116,6 +119,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     Data de Término:
                                 </label>
                                 <input
+                                    required
                                     type="date"
                                     name="dataFinal"
                                     value={projeto.dataFinal}
@@ -128,6 +132,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     Descrição do Projeto:
                                 </label>
                                 <textarea
+                                    required    
                                     type="text"
                                     name="descricao"
                                     value={projeto.descricao}
@@ -140,6 +145,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     Requisitos do Projeto:
                                 </label>
                                 <textarea
+                                    required
                                     type="text"
                                     name="requisito"
                                     value={projeto.requisito}
@@ -149,7 +155,12 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                             </div>
                              <div className="mb-2">
                                 <label className=" text-gray-700 text-sm font-bold mb-2">Tipo do Projeto</label>
-                                <select name='tipo' onChange={handleChange} value={projeto.tipo} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <select
+                                 required
+                                 name='tipo'
+                                 onChange={handleChange}
+                                 value={projeto.tipo} 
+                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option>Selecione um opção</option>
                                     <option>BACKEND</option>
                                     <option>FRONTEND</option>

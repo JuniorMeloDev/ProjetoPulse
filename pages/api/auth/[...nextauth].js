@@ -36,14 +36,13 @@ export const authOptions = {
             //faz a requisição no banco de dados onde tem os cadastros dos usuarios (POST)
           }
        );
+       const user = await res.json();
 
-        const user = await res.json();
-
-        if (user) {
-          return { ...user};
-        } else {
-          return null;
-        }
+       if (user) {
+         return {...user };
+       } else {
+         return null;
+       }
       
         
       },
@@ -51,7 +50,10 @@ export const authOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      return { ...token, ...user };
+      return {
+        ...token,
+        ...user,
+      };
     },
     async session({ session, token, user }) {
       session.user = token;

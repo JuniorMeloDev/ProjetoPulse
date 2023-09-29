@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
-import FormularioCandidatura from '../components/alunos/FormularioCandidatura'
+
 
 function ProjetoCard({ projeto, onCandidatar  }) {
     const [modalAberto, setModalAberto] = useState(false);
-    const [modalCandidaturaAberto, setModalCandidaturaAberto] = useState(false);
 
     const abrirModal = () => {
         setModalAberto(true);
@@ -12,10 +11,6 @@ function ProjetoCard({ projeto, onCandidatar  }) {
 
     const fecharModal = () => {
         setModalAberto(false);
-    };
-
-    const fecharModalCandidatura = () => {
-        setModalCandidaturaAberto(false);
     };
 
     const candidatar = () => {
@@ -61,21 +56,6 @@ function ProjetoCard({ projeto, onCandidatar  }) {
                                 Candidatar
                             </button>
                         </div>
-                    </div>
-                </div>
-            )}
-
-            {modalCandidaturaAberto && (
-                <div className="fixed inset-0 flex items-center justify-center z-50">
-                    <div className="modal-bg fixed inset-0 bg-black opacity-50"></div>
-                    <div className="modal-content bg-white p-6 rounded-lg shadow-lg z-10">
-                        <FormularioCandidatura />
-                        <button
-                            className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded mt-4"
-                            onClick={fecharModalCandidatura}
-                        >
-                            Fechar
-                        </button>
                     </div>
                 </div>
             )}
