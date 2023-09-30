@@ -1,6 +1,6 @@
 
 import BarraDePesquisa from "@/components/elementos/BarraDePesquisa";
-import Layout from "../../../components/Layout";
+import Layout from '@/components/alunos/Layout'
 
 
 export default function MeusProjetos() {

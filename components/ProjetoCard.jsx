@@ -41,7 +41,7 @@ function ProjetoCard({ projeto, onCandidatar  }) {
                         <p className=" text-justify line-clamp-3 mb-2"><strong className='text-zinc-950'>Data Inicial:</strong> {format(new Date(projeto.dataInicial), 'dd/MM/yyyy')}</p>
                         <p className=" text-justify line-clamp-3 mb-2"><strong className='text-zinc-950'>Data Final:</strong> {format(new Date(projeto.dataFinal), 'dd/MM/yyyy')}</p>
                         <p className='mb-2'><strong>Tipo do Projeto:</strong> {projeto.tipo}</p>
-                        <p className='mb-2'><strong>Nome do Professor:</strong></p>
+                        <p className='mb-2'><strong>Nome do Professor:</strong> {projeto.Professor}</p>
                         <div className='flex justify-between'>
                             <button
                                 className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded mt-4"

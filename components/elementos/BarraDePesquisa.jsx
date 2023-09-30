@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function BarraDePesquisa({ onSearch }) {
+export default function BarraDePesquisa({ onSearch, textoParagrafo  }) {
   const [buscaProjeto, setNomeProjeto] = useState('');
   const [tipoProjeto, setTipoProjeto] = useState('Selecione');
 

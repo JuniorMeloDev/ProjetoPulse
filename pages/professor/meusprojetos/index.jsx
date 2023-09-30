@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import Layout from '@/components/Layout'
+import Layout from '@/components/professores/LayoutProfessor'
 import CadastroProjetos from '@/components/professores/CadastroProjetos'
 import MeusProjetos from '@/components/ProjetosCadastrados'
 

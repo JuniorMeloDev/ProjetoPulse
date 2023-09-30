@@ -12,6 +12,7 @@ import { VscNotebook } from 'react-icons/vsc'
 export default function Sidebar() {
 
 	const [userData, setUserData] = useState(null);
+	const [imagemURL, setImagemURL] = useState('');
 
 	const MostrarNomeUsuario = async (e) => {
 
@@ -19,7 +20,7 @@ export default function Sidebar() {
 			const token = JSON.parse(localStorage.getItem('token'));
 
 			if (token) {
-				const response = await fetch('http://localhost:8080/usuario/dados', {
+				const response = await fetch('http://localhost:8080/usuario/nome', {
 					method: 'GET',
 					headers: {
 						'Content-Type': 'application/json',
@@ -34,10 +35,37 @@ export default function Sidebar() {
 			console.error('Erro ao enviar os dados:', error);
 		}
 	};
-
 	useEffect(() => {
 		MostrarNomeUsuario();
 	}, []); // O array vazio [] significa que este efeito será executado uma vez após a montagem
+
+		// função para mostrar a foto do usuario
+		useEffect(() => {
+			async function carregarImagem() {
+			  try {
+				const token = JSON.parse(localStorage.getItem('token'));
+				const response = await fetch('http://localhost:8080/usuario/dados', {
+				  method: 'GET',
+				  headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${token}`,
+				  },
+				});
+		
+				if (response.ok) {
+				  const data = await response.blob();
+				  const url = URL.createObjectURL(data);
+				  setImagemURL(url);
+				} else {
+				  console.error('Erro ao buscar os dados do usuário:', response.statusText);
+				}
+			  } catch (error) {
+				console.error('Erro ao buscar os dados do usuário:', error);
+			  }
+			}
+		
+			carregarImagem();
+		  }, []);
 
 
 	return (
@@ -45,7 +73,7 @@ export default function Sidebar() {
 			<div className="h-full p-3 space-y-2 w-60 dark:bg-gray-900 dark:text-gray-100">
 				<div class="flex flex-col">
 					<div className='h-20 flex items-center px-8'>
-						<Link href='/alunos/home' className='flex-none'>
+						<Link href='/professor/home' className='flex-none'>
 							<img src="../../imagens/Logo.png" width={100} className="mt-9 rounded-full" />
 						</Link>
 					</div>
@@ -54,19 +82,19 @@ export default function Sidebar() {
 				<div className="pt-7 pb-23 divide-y divide-gray-700">
 					<ul className="pt-2 pb-4 space-y-1 text-sm">
 						<li className="dark:bg-gray-800 dark:text-gray-50">
-							<Link href="/alunos/home" className="flex items-center p-2 space-x-3 rounded-md">
+							<Link href="/professor/home" className="flex items-center p-2 space-x-3 rounded-md">
 								<AiOutlineHome className='w-5 h-5' />
 								<span>Início</span>
 							</Link>
 						</li>
 						<li>
-							<Link href="/alunos/notificacoes" className="flex items-center p-2 space-x-3 rounded-md">
+							<Link href="/professor/notificacoes" className="flex items-center p-2 space-x-3 rounded-md">
 								<IoIosNotificationsOutline className='w-5 h-5' />
 								<span>Notificações</span>
 							</Link>
 						</li>
 						<li>
-							<Link href="/alunos/meusprojetos" className="flex items-center p-2 space-x-3 rounded-md">
+							<Link href="/professor/meusprojetos" className="flex items-center p-2 space-x-3 rounded-md">
 								<VscNotebook className='w-5 h-5' />
 								<span>Meus projetos</span>
 							</Link>
@@ -74,13 +102,13 @@ export default function Sidebar() {
 					</ul>
 					<ul className="pt-4 pb-2 space-y-1 text-sm">
 						<li>
-							<Link href="/alunos/configuracoes" className="flex items-center p-2 space-x-3 rounded-md">
+							<Link href="/professor/configuracoes" className="flex items-center p-2 space-x-3 rounded-md">
 								<AiOutlineSetting className='w-5 h-5' />
 								<span>Configurações</span>
 							</Link>
 						</li>
 						<li>
-							<Link href="/alunos/ajuda" className="flex items-center p-2 space-x-3 rounded-md">
+							<Link href="/professor/ajuda" className="flex items-center p-2 space-x-3 rounded-md">
 								<BiHelpCircle className='w-5 h-5' />
 								<span>Ajuda</span>
 							</Link>
@@ -94,19 +122,13 @@ export default function Sidebar() {
 						</li>
 					</ul>
 				</div>
-				<div className="flex items-center p-2 space-x-4 pt-20">
-					<img src="https://source.unsplash.com/100x100/?portrait" alt="foto de perfil" className="w-12 h-12 rounded-full dark:bg-gray-500" />
-					<div>
-						{userData && (
-							<div>
-								<p>{userData}</p>
-							</div>
-						)}
-
-						<span className="flex items-center space-x-1">
-							<a rel="noopener noreferrer" href="#" className="text-xs hover:underline dark:text-gray-400">View profile</a>
-						</span>
-					</div>
+				<div className="flex items-center pt-14">
+					{imagemURL && <img src={imagemURL} className='w-16 rounded-full' alt="Imagem do usuário" />}
+					{userData && (
+						<div className='ml-4'>
+							<p>{userData}</p>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Layout from '../../../components/Layout'
+import Layout from '@/components/alunos/Layout'
 import { useSession } from 'next-auth/react'
 import MeusProjetos from '@/components/ProjetosCadastrados'
 

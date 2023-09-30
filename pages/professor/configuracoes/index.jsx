@@ -1,5 +1,5 @@
 import React from 'react'
-import Layout from '@/components/alunos/Layout'
+import Layout from '@/components/professores/LayoutProfessor'
 import SalvarImagem from '@/components/elementos/SalvarImagem'
 
 
