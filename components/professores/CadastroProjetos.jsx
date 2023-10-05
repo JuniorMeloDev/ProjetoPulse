@@ -6,8 +6,6 @@ export default function CadastroProjetos({ isOpen, onClose }) {
     if (!isOpen) return null;
 
     const token = JSON.parse(localStorage.getItem('token'))// pegando o token do localStorage
-    
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [projeto, setProjeto] = useState({
         titulo: '',
@@ -19,15 +17,6 @@ export default function CadastroProjetos({ isOpen, onClose }) {
         dataFinal: '',
     });
 
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        console.log('Fechando modal...')
-        setIsModalOpen(false);
-       
-    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -40,7 +29,10 @@ export default function CadastroProjetos({ isOpen, onClose }) {
             console.log('Enviando requisição para o servidor...');
             console.log('Token:', token); // Verifica se o token está correto
             console.log('Projeto a ser enviado:', projeto); // Verifica se os dados do projeto estão corretos
-
+            if (!token) {
+                console.error('Token não encontrado.');
+                return;
+            }
             const response = await fetch('http://localhost:8080/projeto/registrar', {
                 method: 'POST',
                 headers: {
@@ -50,14 +42,20 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                 body: JSON.stringify(projeto),
             })
 
-            const data = await response.json();
-            console.log('Dados enviados com sucesso:', data);
-
-            // Feche o modal após o envio bem-sucedido
-            closeModal();
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Dados enviados com sucesso:', data);
+                alert("Projeto Cadastrado com Sucesso");
+                onclose()
+            } else {
+                console.error('Erro ao enviar os dados(PRIMEIRO ELSE):', response.statusText);
+            }
+    
         } catch (error) {
-            console.error('Erro ao enviar os dados:', error);
-            closeModal()
+            console.error('Erro ao enviar os dados(SEGUNDO ELSE):', error);
+            alert("Projeto Cadastrado com Sucesso");
+            onClose()
+            window.location.reload();
         }
     };
 
@@ -132,7 +130,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     Descrição do Projeto:
                                 </label>
                                 <textarea
-                                    required    
+                                    required
                                     type="text"
                                     name="descricao"
                                     value={projeto.descricao}
@@ -153,14 +151,14 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     className="shadow appearance-none border rounded w-full py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 />
                             </div>
-                             <div className="mb-2">
+                            <div className="mb-2">
                                 <label className=" text-gray-700 text-sm font-bold mb-2">Tipo do Projeto</label>
                                 <select
-                                 required
-                                 name='tipo'
-                                 onChange={handleChange}
-                                 value={projeto.tipo} 
-                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    required
+                                    name='tipo'
+                                    onChange={handleChange}
+                                    value={projeto.tipo}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option>Selecione um opção</option>
                                     <option>BACKEND</option>
                                     <option>FRONTEND</option>
@@ -175,9 +173,11 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                 </button>
                             </div>
                         </form>
+                        
                     </div>
                 </div>
             </div>
         </div>
     );
 }
+

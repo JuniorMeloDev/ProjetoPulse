@@ -1,10 +1,15 @@
+import { useSession } from 'next-auth/react';
 import Layout from '@/components/professores/LayoutProfessor'
 import React from 'react'
 
 export default function Ajuda() {
 
-  
-//  const token = JSON.parse(localStorage.getItem('token'));
+  const { data: session } = useSession()
+
+  if (!session || !session.user || !session.user.role.includes('ROLE_PROFESSOR')) {
+    window.location.href = '/naoautenticado'; // condicional para verificar se o usuario é professor
+  };
+
 
   return (
 

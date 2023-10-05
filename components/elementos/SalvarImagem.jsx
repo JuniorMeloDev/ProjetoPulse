@@ -39,6 +39,9 @@ export default function SalvarImagem() {
 
             if (response.ok) {
                 console.log('Imagem enviada com sucesso!');
+                alert('Imagem salva com sucesso')
+                window.location.reload();
+
             } else {
                 console.error('Erro ao enviar a imagem:', response.statusText);
             }

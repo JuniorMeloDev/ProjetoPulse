@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
-
+import { useSession } from 'next-auth/react';
 import Layout from '@/components/professores/LayoutProfessor'
 import CadastroProjetos from '@/components/professores/CadastroProjetos'
-import MeusProjetos from '@/components/ProjetosCadastrados'
+import MeusProjetos from '@/components/professores/ProjetosCadastrados'
 
 
 export default function ProjetosProf() {
 
+  const { data: session } = useSession()
   const [isModalOpen, setIsModalOpen] = useState(false);
-
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -18,6 +18,9 @@ export default function ProjetosProf() {
     setIsModalOpen(false);
   };
 
+  if (!session || !session.user || !session.user.role.includes('ROLE_PROFESSOR')) {
+    window.location.href = '/naoautenticado'; // condicional para verificar se o usuario é professor
+  };
 
   return (
     <div>
@@ -36,3 +39,5 @@ export default function ProjetosProf() {
     </div>
   );
 }
+
+ProjetosProf.auth = true

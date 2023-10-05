@@ -39,33 +39,38 @@ export default function Sidebar() {
 		MostrarNomeUsuario();
 	}, []); // O array vazio [] significa que este efeito será executado uma vez após a montagem
 
-		// função para mostrar a foto do usuario
-		useEffect(() => {
-			async function carregarImagem() {
-			  try {
+	// função para mostrar a foto do usuario
+	useEffect(() => {
+		async function carregarImagem() {
+			try {
 				const token = JSON.parse(localStorage.getItem('token'));
 				const response = await fetch('http://localhost:8080/usuario/dados', {
-				  method: 'GET',
-				  headers: {
-					'Content-Type': 'application/json',
-					'Authorization': `Bearer ${token}`,
-				  },
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': `Bearer ${token}`,
+					},
 				});
-		
+
 				if (response.ok) {
-				  const data = await response.blob();
-				  const url = URL.createObjectURL(data);
-				  setImagemURL(url);
+					const data = await response.blob();
+					const url = URL.createObjectURL(data);
+					setImagemURL(url);
 				} else {
-				  console.error('Erro ao buscar os dados do usuário:', response.statusText);
+					console.error('Erro ao buscar os dados do usuário:', response.statusText);
 				}
-			  } catch (error) {
+			} catch (error) {
 				console.error('Erro ao buscar os dados do usuário:', error);
-			  }
 			}
-		
-			carregarImagem();
-		  }, []);
+		}
+
+		carregarImagem();
+	}, []);
+
+	const handleSignOut = async () => {
+		await signOut(); // Faz o logout
+		localStorage.removeItem('token'); // Remove o token do Local Storage
+	};
 
 
 	return (
@@ -114,23 +119,22 @@ export default function Sidebar() {
 							</Link>
 						</li>
 						<li>
-							<button onClick={() =>
-								signOut({ callbackUrl: 'http://localhost:3000/' })} className="flex items-center p-2 space-x-3 rounded-md">
+							<button onClick={handleSignOut} className="flex items-center p-2 space-x-3 rounded-md">
 								<RxExit className='w-5 h-5' />
 								<span>Sair</span>
 							</button>
-						</li>
-					</ul>
-				</div>
-				<div className="flex items-center pt-14">
-					{imagemURL && <img src={imagemURL} className='w-16 rounded-full' alt="Imagem do usuário" />}
-					{userData && (
-						<div className='ml-4'>
-							<p>{userData}</p>
-						</div>
-					)}
-				</div>
+					</li>
+				</ul>
+			</div>
+			<div className="flex items-center pt-14">
+				{imagemURL && <img src={imagemURL} className='w-16 rounded-full' alt="Imagem do usuário" />}
+				{userData && (
+					<div className='ml-4'>
+						<p>{userData}</p>
+					</div>
+				)}
 			</div>
 		</div>
+		</div >
 	)
 }

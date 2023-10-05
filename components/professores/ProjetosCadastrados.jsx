@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import BarraDePesquisa from './elementos/BarraDePesquisa';
-import Paginacao from './elementos/Paginacao';
+import BarraDePesquisa from '../elementos/BarraDePesquisa';
+import Paginacao from '../elementos/Paginacao';
 import ProjetoCard from './ProjetoCard';
-import FormularioCandidatura from './alunos/FormularioCandidatura'
+
+
 
 
 function ProjetosCadastrados() {
@@ -10,16 +11,17 @@ function ProjetosCadastrados() {
     const [projetosFiltrados, setProjetosFiltrados] = useState([]);
     const [paginaCorrente, setpaginaCorrente] = useState(1); //inicia na pagina 1
     const projetosPaginas = 8; // quantos serão visualizados por página
-    const [projetoExpandido, setProjetoExpandido] = useState(null);
-    const [mostrarFormulario, setMostrarFormulario] = useState(false);
-   
-
-
-    const token = JSON.parse(localStorage.getItem('token'));
+    // const [projetoExpandido, setProjetoExpandido] = useState(null);
+    // const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
     useEffect(() => {
         async function fetchProjetos() {
             try {
+                const token = JSON.parse(localStorage.getItem('token'));
+                if (!token) {
+                    throw new Error('Token não encontrado no localStorage');
+                }
+
                 const response = await fetch('http://localhost:8080/projeto/listar', {
                     method: 'GET',
                     headers: {
@@ -41,10 +43,11 @@ function ProjetosCadastrados() {
         }
 
         fetchProjetos();
-    }, [token]); 
+    }, []);
 
-// funcão para pesquisar projetos pelo titulo, descrição ou requisitos
-    const handleSearch = ({ buscaProjeto, tipoProjeto }) => { 
+
+    // funcão para pesquisar projetos pelo titulo, descrição ou requisitos
+    const handleSearch = ({ buscaProjeto, tipoProjeto }) => {
         const projetosFiltrados = projetos.filter(projeto => {
             const matchBuscaProjeto = buscaProjeto ? projeto.titulo.toLowerCase().includes(buscaProjeto.toLowerCase()) ||
                 projeto.descricao.toLowerCase().includes(buscaProjeto.toLowerCase()) ||
@@ -73,12 +76,12 @@ function ProjetosCadastrados() {
                 {currentProjects.length > 0 ? (
                     currentProjects.map(projeto => (
                         <ProjetoCard
-                         key={projeto.id}
-                         projeto={projeto}
-                         onCandidatar={() => {
-                            setProjetoExpandido(projeto);
-                            setMostrarFormulario(true);
-                        }}
+                            key={projeto.id}
+                            projeto={projeto}
+                            onCandidatar={() => {
+                                setProjetoExpandido(projeto);
+                                setMostrarFormulario(true);
+                            }}
                         />
                     ))
                 ) : (
@@ -89,12 +92,14 @@ function ProjetosCadastrados() {
                     )
                 )}
             </div>
-            <Paginacao 
-                projetosPaginas={projetosPaginas} 
-                totalProjects={projetosFiltrados.length} 
-                paginate={paginate} 
-            />
-    {mostrarFormulario && projetoExpandido && (
+            <div>
+                <Paginacao
+                    projetosPaginas={projetosPaginas}
+                    totalProjects={projetosFiltrados.length}
+                    paginate={paginate}
+                />
+            </div>
+            {/* {mostrarFormulario && projetoExpandido && (
             <FormularioCandidatura
                 projeto={projetoExpandido}
                 onClose={() => setMostrarFormulario(false)}
@@ -104,9 +109,9 @@ function ProjetosCadastrados() {
                     // Adicione aqui a lógica para enviar a candidatura
                 }}
             />
-        )}
-    </div>
-);
+        )} */}
+        </div>
+    );
 }
 
 export default ProjetosCadastrados;

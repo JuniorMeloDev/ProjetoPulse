@@ -1,5 +1,7 @@
 import NextAuth, { getServerSession } from 'next-auth/next';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import jwt from "jsonwebtoken";
+
 
 export const authOptions = {
   providers: [
@@ -39,7 +41,7 @@ export const authOptions = {
        const user = await res.json();
 
        if (user) {
-         return {...user };
+        return {...user }; // Retorna o papel e outros dados do usuário
        } else {
          return null;
        }
@@ -48,11 +50,15 @@ export const authOptions = {
       },
     }),
   ],
+  // session: { strategy: "jwt"},
+  
   callbacks: {
+   
     async jwt({ token, user }) {
       return {
         ...token,
-        ...user,
+         ...user,
+    
       };
     },
 

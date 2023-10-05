@@ -32,7 +32,7 @@ export default function Login() {
     });
     
     if (!result?.error) {
-      router.push('/alunos/home')
+      router.push('/alunos/inicio')
   
     } else {
       setError('Email ou senha inválidos')

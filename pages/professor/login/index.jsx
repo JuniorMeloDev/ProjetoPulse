@@ -11,7 +11,7 @@ import EsqueciSenhaForm from "@/components/elementos/EsqueciSenha";
 
 
 export default function Login() {
-  const {dados: session, status } = useSession();
+  const {data: session, status } = useSession();
   const router = useRouter()
 
 
@@ -30,10 +30,21 @@ export default function Login() {
       email,
       senha,
     });
-
+    if (!session || session.user.role !== "ROLE_PROFESSOR") {
+      // Se o usuário não estiver autenticado ou não tiver a role de professor,
+      // redirecione-o para outra página ou exiba uma mensagem de acesso negado.
+      router.push('/notfound');
+      return null; // Ou exiba uma mensagem de acesso negado aqui
+    }
+   
     if (!result?.error) {
-      router.push('/professor/home')
-  
+      const role = session.user.role; // Verifica a role do usuário
+
+      if (role === 'ROLE_PROFESSOR') {
+        router.push('/professor/home');
+      } else {
+        setError('Você não tem permissão para acessar esta página.');
+      }
     } else {
       setError('Email ou senha inválidos')
     }
