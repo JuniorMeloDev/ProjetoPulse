@@ -8,6 +8,9 @@ import MeusProjetos from '@/components/professores/ProjetosCadastrados'
 export default function ProjetosProf() {
 
   const { data: session } = useSession()
+
+  const token = JSON.stringify(session.user.token)// constante que usa o token da sessão 
+  localStorage.setItem('token', token)// seta o token e coloca no local Storage
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {

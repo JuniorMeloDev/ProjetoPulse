@@ -4,31 +4,8 @@ import { format } from 'date-fns';
 export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
     
     const [habilidade, setHabilidade] = useState('');
-    const [jaCandidatou, setJaCandidatou] = useState(false);
 
     const token = JSON.parse(localStorage.getItem('token'))
-
-    useEffect(() => {
-        async function verificarCandidatura() {
-            try {
-                const response = await fetch(`http://localhost:8080/projeto/verificar-candidatura/${projeto.id}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`,
-                    }
-                });
-
-                if (response.ok) {
-                    setJaCandidatou(true);
-                }
-            } catch (error) {
-                console.error('Erro ao verificar candidatura:', error);
-            }
-        }
-
-        verificarCandidatura();
-    }, [projeto.id, token]);
 
     const handleHabilidadeChange = (e) => {
         setHabilidade(e.target.value);
@@ -36,16 +13,11 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (jaCandidatou) {
-            alert('Você já se candidatou a essa vaga');
-            return;
-        }
-
         onSubmit(projeto.id, habilidade);
         onClose();
 
         try {
-            const response = await fetch('http://localhost:8080/projeto/candidatar', {
+            const response = await fetch('http://localhost:8080/orientacao/candidatar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,9 +31,10 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
 
             const data = await response.json();
             console.log('Dados enviados com sucesso:', data);
+            alert('candidatura com sucesso')
 
         } catch (error) {
-            console.error('Erro ao enviar os dados:', error);
+            console.error('Erro ao enviar os dados (catch):', error);
             alert("Candidatura cadastrada com sucesso!")
         }
     };
@@ -71,8 +44,6 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
             <div className="modal-bg fixed inset-0 bg-black opacity-50"></div>
             <div className="modal-content bg-white p-6 rounded-lg shadow-lg z-10">
                 <h2 className="text-xl font-bold mb-2">{projeto.titulo}</h2>
-
-                <p><strong>Professor: {projeto.matricula} </strong> </p>
                 <p className="text-gray-700 text-justify line-clamp-3 mt-2"><strong className='text-zinc-950'>Data Inicial:</strong> {format(new Date(projeto.dataInicial), 'dd/MM/yyyy')}</p>
                 <p className="text-gray-700 text-justify line-clamp-3 mt-2"><strong className='text-zinc-950'>Data Final:</strong> {format(new Date(projeto.dataFinal), 'dd/MM/yyyy')}</p>
                 <form onSubmit={handleSubmit}>

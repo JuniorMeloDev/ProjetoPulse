@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 
 export default function CadastroProjetos({ isOpen, onClose }) {
@@ -17,7 +16,6 @@ export default function CadastroProjetos({ isOpen, onClose }) {
         dataFinal: '',
     });
 
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setProjeto({ ...projeto, [name]: value });
@@ -25,14 +23,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try { //verificando os erros do pq a requisição não pega
-            console.log('Enviando requisição para o servidor...');
-            console.log('Token:', token); // Verifica se o token está correto
-            console.log('Projeto a ser enviado:', projeto); // Verifica se os dados do projeto estão corretos
-            if (!token) {
-                console.error('Token não encontrado.');
-                return;
-            }
+        try {
             const response = await fetch('http://localhost:8080/projeto/registrar', {
                 method: 'POST',
                 headers: {
@@ -40,23 +31,25 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(projeto),
-            })
+            });
+            console.log('resposta: ', response.text())
 
             if (response.ok) {
                 const data = await response.json();
                 console.log('Dados enviados com sucesso:', data);
-                alert("Projeto Cadastrado com Sucesso");
-                onclose()
+                alert('Projeto Cadastrado com Sucesso');
+                onClose();
             } else {
-                console.error('Erro ao enviar os dados(PRIMEIRO ELSE):', response.statusText);
+                console.error('Erro ao enviar os dados:', response.statusText);
             }
-    
+
         } catch (error) {
-            console.error('Erro ao enviar os dados(SEGUNDO ELSE):', error);
+            console.error('Erro ao enviar os dados:', error);
             alert("Projeto Cadastrado com Sucesso");
-            onClose()
+            onClose();
             window.location.reload();
         }
+        
     };
 
     return (
@@ -165,15 +158,15 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                 </select>
                             </div>
                             <div className="flex items-center justify-end">
+
                                 <button
-                                    type="submit"
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline"
+                                    onClick={handleSubmit}
+                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
                                 >
                                     Salvar
                                 </button>
                             </div>
                         </form>
-                        
                     </div>
                 </div>
             </div>

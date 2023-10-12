@@ -18,7 +18,7 @@ function Paginacao({ projetosPaginas, totalProjects, paginate }) {
 
     return (
         <nav>
-            <div className="flex items-center justify-center mt-1 cursor-pointer">
+            <div className="flex items-center justify-center cursor-pointer">
                 <ul className='flex gap-2'>
                     <li>
                         <a

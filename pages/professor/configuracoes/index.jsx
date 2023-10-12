@@ -14,10 +14,15 @@ export default function Configuracoes() {
 
   return (
     <Layout>
-    <div>
-      <p>Configurações</p>
-    <SalvarImagem/>
-    </div>
+      <div>
+        <h1 className='text-2xl font-bold mb-4'>Dados da Sessão: </h1>
+        <p>Usuário: {session.user.nome}</p>
+        <p>Email: {session.user.email}</p>
+        <div className='mt-16'>
+          <p className='mb-1 font-bold'>Selecionar imagem de perfil</p>
+          <SalvarImagem />
+        </div>
+      </div>
     </Layout>
   )
 }

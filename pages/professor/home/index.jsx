@@ -1,6 +1,6 @@
 import Layout from '@/components/professores/LayoutProfessor'
 import BarraDePesquisa from '@/components/elementos/BarraDePesquisa'
-import MeusProjetos from '@/components/professores/ProjetosCadastrados'
+import ProjetosCandidatados from '@/components/professores/ProjetosCandidatados'
 import { useSession} from 'next-auth/react'
 
 
@@ -19,7 +19,7 @@ export default function Home() {
 
     <div>
       <Layout>
-      <MeusProjetos/>
+      <ProjetosCandidatados/>
       </Layout>
     </div>
   )

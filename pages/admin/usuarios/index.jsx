@@ -1,9 +1,10 @@
-import Layout from '@/components/Layout'
+import ListarUsuarios from '@/components/usuarios/ListarUsuarios'
 import React from 'react'
 import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
+import Layout from '@/components/alunos/LayoutAluno';
 
-export default function ListarUsuarios() {
+export default function Usuarios() {
 
   const {data: session} = useSession()
 
@@ -41,14 +42,15 @@ export default function ListarUsuarios() {
 
     <div>
       <Layout>
-      <h1>Lista de Usuários</h1>
+        <ListarUsuarios/>
+      {/* <h1>Lista de Usuários</h1>
       
         {usuarios.map((usuario) => (
           <p key={usuario.id}>Nome do Usuario: {usuario.nome}, Email do Usuario: {usuario.email}, Role: {usuario.usuarioRole}</p>
         ))}
-         {/* <li>{session.user.role}</li> */}
-      </Layout>
+          <li>{session.user.role}</li> */}
+          </Layout>
     </div>
   )
 }
-ListarUsuarios.auth = true
+Usuarios.auth = true

@@ -1,6 +1,7 @@
 import React from 'react'
 import Layout from '@/components/alunos/LayoutAluno'
 import { useSession } from 'next-auth/react'
+import TelaAjuda from '@/components/elementos/TelaAjuda';
 
 
 export default function Ajuda() {
@@ -13,16 +14,8 @@ export default function Ajuda() {
 
   return (
     <Layout>
-      <div>
-        <p className='pt-28'>Ajuda</p>
-        <p>{session.user.token}</p>
-        <p>{session.user.iat}</p>
-        <p>{session.user.jti}</p>
-
-
-
-      </div>
-    </Layout>
+    <TelaAjuda/>
+  </Layout>
   )
 }
 Ajuda.auth = true

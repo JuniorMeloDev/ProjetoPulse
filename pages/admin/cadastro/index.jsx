@@ -36,6 +36,7 @@ export default function CadastroUsuario() {
 
             const data = await response.json();
             console.log('Dados enviados com sucesso:', data);
+            alert('Cadastro Efetuado com Sucesso!')
 
         } catch (error) {
             console.error('Erro ao enviar os dados:', error);

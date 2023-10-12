@@ -13,7 +13,8 @@ export default function Notificacoes() {
 
   return (
     <Layout>
-    <div>Notificações</div>
+    <div>Notificações
+    </div>
     </Layout>
   )
 }

@@ -1,4 +1,4 @@
-import Layout from '@/components/Layout'
+
 import React from 'react'
 import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
@@ -40,7 +40,7 @@ export default function Home() {
   return (
 
     <div>
-      <Layout>
+ 
       <h1>Lista de Usuários</h1>
       <ul>
         {usuarios.map((usuario) => (
@@ -48,7 +48,7 @@ export default function Home() {
          
         ))}
       </ul>
-      </Layout>
+    
     </div>
   )
 }
