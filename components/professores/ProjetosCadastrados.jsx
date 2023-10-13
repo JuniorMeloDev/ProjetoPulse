@@ -14,6 +14,7 @@ function ProjetosCadastrados() {
     const [candidatos, setCandidatos] = useState([]);
     const [mostrarCandidatos, setMostrarCandidatos] = useState(false);
 
+
     useEffect(() => {
         async function fetchProjetos() {
             try {

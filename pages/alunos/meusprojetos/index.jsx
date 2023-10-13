@@ -2,6 +2,7 @@
 import BarraDePesquisa from "@/components/elementos/BarraDePesquisa";
 import Layout from '@/components/alunos/LayoutAluno'
 import { useSession } from 'next-auth/react';
+import ProjetosCandidatados from "@/components/alunos/ProjetosCandidatados";
 
 
 export default function MeusProjetos() {
@@ -16,8 +17,7 @@ export default function MeusProjetos() {
 
         <Layout>
             <div>
-                <BarraDePesquisa />
-                Projetos que estou participando
+                <ProjetosCandidatados/>
             </div>
         </Layout>
     )
