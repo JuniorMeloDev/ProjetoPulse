@@ -12,7 +12,6 @@ import { HiOutlineUser } from 'react-icons/hi'
 
 export default function Sidebar() {
 
-	const [mostrarNome, setmostrarNome] = useState(null);
 	const [imagemUsuario, setimagemUsuario] = useState('');
 	const { data: session } = useSession()
 	const router = useRouter();
@@ -54,8 +53,8 @@ export default function Sidebar() {
 
 	return (
 		<div>
-			<div className="h-full p-3 space-y-2 w-60 dark:bg-gray-900 dark:text-gray-100">
-				<div class="flex flex-col">
+			 <div className="h-full p-3 space-y-2 w-full md:w-60 dark:bg-gray-900 dark:text-gray-100">
+    <div className="flex flex-col items-center md:items-start">
 					<div className='h-20 flex items-center px-8'>
 						<Link href='/professor/home' className='flex-none'>
 							<img src="../../imagens/Logo.png" width={100} className="mt-9 rounded-full" />
@@ -63,14 +62,8 @@ export default function Sidebar() {
 					</div>
 				</div>
 
-				<div className="pt-7 pb-23 divide-y divide-gray-700">
+				<div className="pt-7 pb-8 divide-y divide-gray-700">
 					<ul className="pt-2 pb-4 space-y-1 text-sm">
-						{/* <li className="dark:bg-gray-800 dark:text-gray-50">
-							<Link href="/professor/home" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/professor/home' ? 'bg-slate-400' : ''}`}>
-								<AiOutlineHome className='w-5 h-5' />
-								<span>Início</span>
-							</Link>
-						</li> */}
 						<li>
 							<Link href="/professor/meusprojetos" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/professor/meusprojetos' ? 'bg-slate-400' : ''}`}>
 								<VscNotebook className='w-5 h-5' />

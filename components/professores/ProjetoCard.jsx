@@ -20,7 +20,7 @@ function ProjetoCard({ projeto, onDelete, onCandidatos, hasCandidaturas }) {
 
     return (
         <div>
-              <div
+            <div
                 className={`max-w-md mx-auto mt-2 mb-8 cursor-pointer rounded-md shadow-md shadow-gray-200 hover:shadow-blue-400/80 hover:shadow-2xl hover:bg-${hasCandidaturas ? 'yellow' : 'gray'}-50`}
                 onClick={abrirModal}
             >
@@ -42,7 +42,7 @@ function ProjetoCard({ projeto, onDelete, onCandidatos, hasCandidaturas }) {
                         <p className=" text-justify line-clamp-3 mb-2"><strong className='text-zinc-950'>Data Inicial:</strong> {format(new Date(projeto.dataInicial), 'dd/MM/yyyy')}</p>
                         <p className=" text-justify line-clamp-3 mb-2"><strong className='text-zinc-950'>Data Final:</strong> {format(new Date(projeto.dataFinal), 'dd/MM/yyyy')}</p>
                         <p className='mb-2'><strong>Tipo do Projeto:</strong> {projeto.tipo}</p>
-                        <div className='flex justify-between'>
+                        <div className='flex justify-between gap-3'>
                             <button
                                 className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded mt-4"
                                 onClick={fecharModal}
@@ -50,14 +50,14 @@ function ProjetoCard({ projeto, onDelete, onCandidatos, hasCandidaturas }) {
                                 Fechar
                             </button>
                             <button
-    className="bg-yellow-300 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4"
-    onClick={handleCandidatos}>
-    Candidaturas
-</button>
+                                className="bg-yellow-300 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4"
+                                onClick={handleCandidatos}>
+                                Candidaturas
+                            </button>
                             <button onClick={() => onDelete(projeto.id)}
                                 className="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded mt-4"
                             >
-                               Deletar
+                                Deletar
                             </button>
                         </div>
                     </div>

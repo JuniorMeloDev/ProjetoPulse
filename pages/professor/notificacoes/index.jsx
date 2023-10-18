@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/professores/LayoutProfessor'
+import NotificacaoCandidaturas from '@/components/alunos/NotificacaoCandidatura';
 
 export default function Notificacoes() {
 
@@ -13,7 +14,8 @@ export default function Notificacoes() {
 
   return (
     <Layout>
-    <div>Notificações
+    <div>
+    <NotificacaoCandidaturas/>
     </div>
     </Layout>
   )

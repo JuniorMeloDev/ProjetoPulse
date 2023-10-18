@@ -10,7 +10,6 @@ const NotificacaoCard = ({ mensagem, onClose }) => {
         <strong>Remetente:</strong> {mensagem.remetente}<br />
         <strong>Mensagem:</strong> {mensagem.mensagem}<br />
         <strong>Enviado em:</strong> {format(new Date(mensagem.horarioEnvio), 'dd/MM/yyyy HH:mm a')}<br />
-        {/* Adicione os outros detalhes aqui */}
       </div>
     </div>
   );

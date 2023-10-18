@@ -49,14 +49,14 @@ export default function CadastroProjetos({ isOpen, onClose }) {
             onClose();
             window.location.reload();
         }
-        
+
     };
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-            <div className="modal-overlay absolute w-full h-full">
-                <div className="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
-                    <div className="modal-content py-1 text-left px-6">
+            <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50">
+                <div className="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                    <div className="py-1 text-left px-6">
                         <div className="flex justify-end items-center">
                             <button
                                 onClick={onClose}

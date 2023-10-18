@@ -5,7 +5,7 @@ import ProjetoCard from './ProjetoCard';
 import FormularioCandidatura from './FormularioCandidatura';
 
 function MeusProjetosCadastrados() {
-    
+
     const [projetos, setProjetos] = useState([]);
     const [projetosFiltrados, setProjetosFiltrados] = useState([]);
     const [paginaCorrente, setpaginaCorrente] = useState(1); //inicia na pagina 1
@@ -48,10 +48,12 @@ function MeusProjetosCadastrados() {
     // funcão para pesquisar projetos pelo titulo, descrição ou requisitos
     const handleSearch = ({ buscaProjeto, tipoProjeto }) => {
         const projetosFiltrados = projetos.filter(projeto => {
-            const matchBuscaProjeto = buscaProjeto ? projeto.titulo.toLowerCase().includes(buscaProjeto.toLowerCase()) ||
-                projeto.descricao.toLowerCase().includes(buscaProjeto.toLowerCase()) ||
-                projeto.requesito.toLowerCase().includes(buscaProjeto.toLowerCase()) : true;
-            const matchTipoProjeto = tipoProjeto !== 'Selecione' ? projeto.tipo.toLowerCase() === tipoProjeto.toLowerCase() : true;
+            const matchBuscaProjeto = buscaProjeto ?
+                (projeto.titulo && projeto.titulo.toLowerCase().includes(buscaProjeto.toLowerCase())) ||
+                (projeto.descricao && projeto.descricao.toLowerCase().includes(buscaProjeto.toLowerCase())) ||
+                (projeto.requesito && projeto.requesito.toLowerCase().includes(buscaProjeto.toLowerCase()))
+                : true;
+            const matchTipoProjeto = tipoProjeto !== 'Selecione' ? (projeto.tipo && projeto.tipo.toLowerCase() === tipoProjeto.toLowerCase()) : true;
 
             return matchBuscaProjeto && matchTipoProjeto;
         });
@@ -59,6 +61,7 @@ function MeusProjetosCadastrados() {
         setProjetosFiltrados(projetosFiltrados);
         setpaginaCorrente(1); // Resetando para a primeira página ao realizar uma nova busca
     };
+
 
     // constantes para uso de paginação. junto com o componente 'Paginação.JSX'
     const indexOfLastProject = paginaCorrente * projetosPaginas;
@@ -99,16 +102,16 @@ function MeusProjetosCadastrados() {
                 />
             </div>
             {mostrarFormulario && projetoExpandido && (
-            <FormularioCandidatura
-                projeto={projetoExpandido}
-                onClose={() => setMostrarFormulario(false)}
-                onSubmit={(projetoId, candidatura) => {
-                    // Faça a requisição para candidatar o aluno aqui
-                    console.log(`Enviando candidatura para o projeto ${projetoId}: ${candidatura}`);
-                    // Adicione aqui a lógica para enviar a candidatura
-                }}
-            />
-        )}
+                <FormularioCandidatura
+                    projeto={projetoExpandido}
+                    onClose={() => setMostrarFormulario(false)}
+                    onSubmit={(projetoId, candidatura) => {
+                        // Faça a requisição para candidatar o aluno aqui
+                        console.log(`Enviando candidatura para o projeto ${projetoId}: ${candidatura}`);
+                        // Adicione aqui a lógica para enviar a candidatura
+                    }}
+                />
+            )}
         </div>
     );
 }

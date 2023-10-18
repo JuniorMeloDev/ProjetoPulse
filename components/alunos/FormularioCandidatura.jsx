@@ -30,7 +30,7 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
             });
 
             const data = await response.json();
-            console.log('Dados enviados com sucesso:', data);
+            // console.log('Dados enviados com sucesso:', data);
             alert('candidatura com sucesso')
 
         } catch (error) {

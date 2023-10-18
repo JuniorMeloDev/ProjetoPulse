@@ -104,17 +104,20 @@ function ProjetosCadastrados() {
     // funcão para pesquisar projetos pelo titulo, descrição ou requisitos
     const handleSearch = ({ buscaProjeto, tipoProjeto }) => {
         const projetosFiltrados = projetos.filter(projeto => {
-            const matchBuscaProjeto = buscaProjeto ? projeto.titulo.toLowerCase().includes(buscaProjeto.toLowerCase()) ||
-                projeto.descricao.toLowerCase().includes(buscaProjeto.toLowerCase()) ||
-                projeto.requesito.toLowerCase().includes(buscaProjeto.toLowerCase()) : true;
-            const matchTipoProjeto = tipoProjeto !== 'Selecione' ? projeto.tipo.toLowerCase() === tipoProjeto.toLowerCase() : true;
-
+            const matchBuscaProjeto = buscaProjeto ? 
+                (projeto.titulo && projeto.titulo.toLowerCase().includes(buscaProjeto.toLowerCase())) ||
+                (projeto.descricao && projeto.descricao.toLowerCase().includes(buscaProjeto.toLowerCase())) ||
+                (projeto.requesito && projeto.requesito.toLowerCase().includes(buscaProjeto.toLowerCase())) 
+                : true;
+            const matchTipoProjeto = tipoProjeto !== 'Selecione' ? (projeto.tipo && projeto.tipo.toLowerCase() === tipoProjeto.toLowerCase()) : true;
+    
             return matchBuscaProjeto && matchTipoProjeto;
         });
-
+    
         setProjetosFiltrados(projetosFiltrados);
         setpaginaCorrente(1); // Resetando para a primeira página ao realizar uma nova busca
     };
+    
 
     // constantes para uso de paginação. junto com o componente 'Paginação.JSX'
     const indexOfLastProject = paginaCorrente * projetosPaginas;
@@ -137,6 +140,7 @@ function ProjetosCadastrados() {
                                 projeto={projeto}
                                 onCandidatos={handleCandidatos}
                                 hasCandidaturas={projeto.orientacao && projeto.orientacao.length > 0}
+
                             />
 
                         ))}

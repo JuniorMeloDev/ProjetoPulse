@@ -50,7 +50,7 @@ export default function NotificacaoCandidaturas() {
       <ul>
         {mensagens.map(mensagem => (
           <li key={mensagem.id}>
-            <p className="cursor-pointer" onClick={() => handleMensagemClick(mensagem)}>
+            <p className="cursor-pointer hover:bg-slate-200 w-72" onClick={() => handleMensagemClick(mensagem)}>
               <strong>Remetente:</strong> {mensagem.remetente}<br />
               <strong>Enviando em: </strong>{format(new Date(mensagem.horarioEnvio), 'dd/MM/yyyy HH:mm a')}
             </p>
