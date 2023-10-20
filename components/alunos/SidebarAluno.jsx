@@ -12,37 +12,9 @@ import {HiOutlineUser} from 'react-icons/hi'
 
 export default function Sidebar() {
 
-	const [nomeUsuario, setnomeUsuario] = useState(null);
 	const [imagemUsuario, setimagemUsuario] = useState('');
 	const {data: session} = useSession()
 
-	// const MostrarNomeUsuario = async (e) => {
-
-	// 	try {
-	// 		const token = JSON.parse(localStorage.getItem('token'));
-
-	// 		if (token) {
-	// 			const response = await fetch('http://localhost:8080/usuario/nome', {
-	// 				method: 'GET',
-	// 				headers: {
-	// 					'Content-Type': 'application/json',
-	// 					'Authorization': `Bearer ${token}`,
-	// 				},
-	// 			})
-
-	// 			const data = await response.text();
-	// 			setnomeUsuario(data);
-	// 		}
-	// 	} catch (error) {
-	// 		console.error('Erro ao enviar os dados:', error);
-	// 	}
-	// };
-
-	// useEffect(() => {
-	// 	MostrarNomeUsuario();
-	// }, []); // O array vazio [] significa que este efeito será executado uma vez após a montagem
-
-	// função para mostrar a foto do usuario
 	useEffect(() => {
 		async function carregarImagem() {
 			try {

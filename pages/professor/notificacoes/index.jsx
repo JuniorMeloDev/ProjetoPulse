@@ -1,7 +1,8 @@
 import React from 'react'
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/professores/LayoutProfessor'
-import NotificacaoCandidaturas from '@/components/alunos/NotificacaoCandidatura';
+import NotificacaoCandidaturas from '@/components/professores/NotificacaoCandidatura';
+import BarraDePesquisaNotificacao from '@/components/elementos/BarraDePesquisaNotificacao';
 
 export default function Notificacoes() {
 
@@ -14,9 +15,9 @@ export default function Notificacoes() {
 
   return (
     <Layout>
-    <div>
-    <NotificacaoCandidaturas/>
-    </div>
+      <div>
+        <NotificacaoCandidaturas />
+      </div>
     </Layout>
   )
 }

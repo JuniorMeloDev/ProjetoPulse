@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { format } from 'date-fns';
 
 
-function ProjetoCard({ projeto, onDelete, onCandidatos, hasCandidaturas }) {
+function ProjetoCard({ projeto, onDelete, onCandidatos }) {
     const [modalAberto, setModalAberto] = useState(false);
 
     const abrirModal = () => {
@@ -20,11 +20,11 @@ function ProjetoCard({ projeto, onDelete, onCandidatos, hasCandidaturas }) {
 
     return (
         <div>
-            <div
-                className={`max-w-md mx-auto mt-2 mb-8 cursor-pointer rounded-md shadow-md shadow-gray-200 hover:shadow-blue-400/80 hover:shadow-2xl hover:bg-${hasCandidaturas ? 'yellow' : 'gray'}-50`}
+              <div
+                 className='max-w-[14rem] mx-auto mt-2 mb-8 cursor-pointer rounded-md shadow-md shadow-gray-200 hover:shadow-blue-400/80 hover:shadow-2xl'
                 onClick={abrirModal}
             >
-                <div className="bg-slate-100 p-6 rounded-lg shadow-lg">
+                <div className="bg-slate-100 p-4 rounded-lg shadow-lg">
                     <h2 className="text-xl font-bold mb-2 line-clamp-1 ">{projeto.titulo}</h2>
                     <p className="text-gray-700 mb-4 line-clamp-2"><strong>Descrição: </strong>{projeto.descricao}</p>
                 </div>
@@ -50,14 +50,14 @@ function ProjetoCard({ projeto, onDelete, onCandidatos, hasCandidaturas }) {
                                 Fechar
                             </button>
                             <button
-                                className="bg-yellow-300 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4"
-                                onClick={handleCandidatos}>
-                                Candidaturas
-                            </button>
+    className="bg-yellow-300 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4"
+    onClick={handleCandidatos}>
+    Candidaturas
+</button>
                             <button onClick={() => onDelete(projeto.id)}
                                 className="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded mt-4"
                             >
-                                Deletar
+                               Deletar
                             </button>
                         </div>
                     </div>

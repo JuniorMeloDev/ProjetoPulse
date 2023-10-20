@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { PiTrashSimple } from 'react-icons/pi'
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa'
-import BarraDePesquisaNotificacao from '@/components/elementos/BarraDePesquisaNotificacao';
+import BarraDePesquisaNotificacao from '../elementos/BarraDePesquisaNotificacao';
 
 export default function NotificacaoCandidaturas() {
   const [mensagens, setMensagens] = useState([]);
   const [mensagensFiltradas, setMensagensFiltradas] = useState([]);
   const [paginaAtual, setpaginaAtual] = useState(1);
-  const [mensagensPorPaginas, setmensagensPorPaginas] = useState(4);
+  const [mensagensPorPaginas, setmensagensPorPaginas] = useState(8);
   const [VisibildadePaginas, setVisibildadePaginas] = useState(5);
   const [paginaInicial, setpaginaInicial] = useState(1);
 
@@ -60,12 +60,12 @@ export default function NotificacaoCandidaturas() {
 
         // Ajuste para o último segundo do dia
         dataFinalDate.setHours(23, 59, 59, 999);
-  
+
         // Converter datas para o mesmo fuso horário
         dataEnvio.setUTCHours(0, 0, 0, 0);
         dataInicialDate.setUTCHours(0, 0, 0, 0);
         dataFinalDate.setUTCHours(0, 0, 0, 0);
-  
+
         return dataEnvio >= dataInicialDate && dataEnvio <= dataFinalDate;
       }
     });
@@ -161,7 +161,7 @@ export default function NotificacaoCandidaturas() {
           </tbody>
         </table>
       </div>
-      <div className="flex gap-4 justify-center items-center mt-2">
+      <div className="flex gap-4 justify-center items-center mt-4">
         <button
           onClick={prevPage}
           className="bg-blue-600 text-white p-2 rounded-lg"

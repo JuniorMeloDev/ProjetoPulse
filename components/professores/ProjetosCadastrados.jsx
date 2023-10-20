@@ -10,7 +10,7 @@ function ProjetosCadastrados() {
     const [projetos, setProjetos] = useState([]);
     const [projetosFiltrados, setProjetosFiltrados] = useState([]);
     const [paginaCorrente, setpaginaCorrente] = useState(1); //inicia na pagina 1
-    const projetosPaginas = 8; // quantos serão visualizados por página
+    const [projetosPaginas, setProjetosPaginas] = useState(6); // quantos serão visualizados por página
     const [candidatos, setCandidatos] = useState([]);
     const [mostrarCandidatos, setMostrarCandidatos] = useState(false);
 
@@ -44,6 +44,22 @@ function ProjetosCadastrados() {
         }
 
         fetchProjetos();
+    }, []);
+
+    useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth < 500) {
+                setProjetosPaginas(2); // Altere o número de projetos por página para x em telas menores que 500px
+            } else {
+                setProjetosPaginas(6); // Caso contrário, mantenha o padrão de x projetos por página
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
     }, []);
 
     const handleCandidatos = async (projetoId) => {
@@ -132,26 +148,23 @@ function ProjetosCadastrados() {
             <div className="flex-grow">
                 <BarraDePesquisa onSearch={handleSearch} />
                 {projetos.length > 0 ? (
-                    <div className='grid grid-cols-4 gap-3 mt-4'>
-                        {currentProjects.map(projeto => (
-                            <ProjetoCard
-                                key={projeto.id}
-                                onDelete={() => handleDelete(projeto.id)} // Passa a função onDelete como prop
-                                projeto={projeto}
-                                onCandidatos={handleCandidatos}
-                                hasCandidaturas={projeto.orientacao && projeto.orientacao.length > 0}
-
-                            />
-
-                        ))}
-                        
-                    </div>
+                   <div className={`grid ${window.innerWidth < 500 ? 'grid-cols-1' : 'grid-cols-3'} `}>
+                   {currentProjects.map(projeto => (
+                       <ProjetoCard
+                           key={projeto.id}
+                           onDelete={() => handleDelete(projeto.id)}
+                           projeto={projeto}
+                           onCandidatos={handleCandidatos}
+                       />
+                   ))}
+               </div>
+               
                 ) : (
                     <p className="text-center mt-4">
                         Olá Professor, Cadastre o seu primeiro projeto!
                     </p>
                 )}
-                <div className="fixed bottom-1" >
+                <div className="bottom-1" >
                     <Paginacao
                         projetosPaginas={projetosPaginas}
                         totalProjects={projetosFiltrados.length}

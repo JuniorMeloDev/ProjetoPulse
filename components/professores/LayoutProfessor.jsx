@@ -1,8 +1,6 @@
 import React from "react";
 import SidebarProfessor from "./SidebarProfessor";
 
-
-
 const Layout = ({ children }) => {
     return (
         <div className="bg-gray-300 h-screen flex flex-row justify-start">
