@@ -1,5 +1,3 @@
-
-import BarraDePesquisa from "@/components/elementos/BarraDePesquisa";
 import Layout from '@/components/alunos/LayoutAluno'
 import { useSession } from 'next-auth/react';
 import ProjetosCandidatados from "@/components/alunos/ProjetosCandidatados";

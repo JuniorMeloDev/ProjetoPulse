@@ -53,7 +53,7 @@ export default function Sidebar() {
 				<div class="flex flex-col">
 					<div className='h-20 flex items-center px-8'>
 						<Link href='/alunos/inicio' className='flex-none'>
-							<img src="../../imagens/Logo.png" width={100} className="mt-9 rounded-full" />
+							<img src="../../imagens/LogoSemNome.png" width={120} className="mt-9 rounded-full" />
 						</Link>
 					</div>
 				</div>
@@ -110,11 +110,9 @@ export default function Sidebar() {
 							<HiOutlineUser className="w-10 h-10 text-white" />
 						</div>
 					)}
-					{/* {nomeUsuario && ( */}
 						<div className='ml-4'>
 							<p>{session.user.nome}</p>
 						</div>
-					{/* )} */}
 				</div>
 
 			</div>

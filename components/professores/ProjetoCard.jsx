@@ -50,7 +50,7 @@ function ProjetoCard({ projeto, onDelete, onCandidatos }) {
                                 Fechar
                             </button>
                             <button
-    className="bg-yellow-300 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4"
+    className="bg-orange-600 hover:bg-orange-800 text-white font-bold py-2 px-4 rounded mt-4"
     onClick={handleCandidatos}>
     Candidaturas
 </button>

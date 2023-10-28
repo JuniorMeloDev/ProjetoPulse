@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function CardDetalhesCandidato({ candidato, onClose }) {
+  const [mostrarMensagem, setMostrarMensagem] = useState(false);
+  const [mensagem, setMensagem] = useState('');
 
   const aceitarCandidatura = async () => {
-
     try {
       const token = JSON.parse(localStorage.getItem('token'));
       const response = await fetch(`http://localhost:8080/orientacao/aceitar/${candidato.id}`, {
@@ -15,55 +16,52 @@ function CardDetalhesCandidato({ candidato, onClose }) {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        alert('Candidatura aceita com Sucesso!');
+        const data = await response.text();
+        console.log('Candidatura aceita com sucesso', data);
+        setMostrarMensagem(true);
+        setMensagem('Candidatura Aceita com Sucesso!');
 
-        onClose();
+        setTimeout(() => {
+          onClose();
+        }, 1500);
       } else {
-        console.error('Erro ao enviar os dados(Else):', response.statusText);
-        onclose()
+        console.error('Erro ao enviar os dados:', response.statusText);
       }
-
     } catch (error) {
-      console.error('Erro a aceitar a candidatura(Else):', error);
-      alert('Candidatura aceita com Sucesso! (catch)');
-      onClose();
-      // window.location.reload();
-
+      console.error('Erro a aceitar a candidatura(catch):', error);
+      alert('Erro no cadastramento da candidatura');
     }
   }
 
-
   const recusarCandidatura = async () => {
-      try {
-        const token = JSON.parse(localStorage.getItem('token'))// pegando o token do localStorage
+    try {
+      const token = JSON.parse(localStorage.getItem('token'));
 
-        const response = await fetch(`http://localhost:8080/orientacao/recusar/${candidato.id}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-        });
+      const response = await fetch(`http://localhost:8080/orientacao/recusar/${candidato.id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
 
-        if (response.ok) {
-          const data = await response.json();
-          alert('Candidatura recusada com Sucesso!');
-          console.log('resposta da constante: ', data)
-          // onClose();
-        } else {
-          console.error('Erro ao enviar os dados:', response.statusText);
-          console.log('resposta da constante: ', data)
-        }
+      if (response.ok) {
+        const data = await response.text();
+        setMostrarMensagem(true);
+        setMensagem('Candidatura Recusada com Sucesso!');
 
-      } catch (error) {
-        console.error('Erro a recusar a candidatura:', error);
-        alert('Candidatura recusada com Sucesso! (catch)');
-        onClose();
-        // window.location.reload();
+        setTimeout(() => {
+          onClose();
+        }, 1500);
+      } else {
+        console.error('Erro ao enviar os dados:', response.statusText);
       }
+    } catch (error) {
+      console.error('Erro a recusar a candidatura:', error);
+      alert('Erro ao recusar a candidatura');
+      onClose();
+    }
   }
-
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -73,20 +71,26 @@ function CardDetalhesCandidato({ candidato, onClose }) {
         <p className="max-w-[28rem] text-justify mb-2">
           <strong>Resumo acadêmico:</strong> {candidato.habilidade}
         </p>
-        <div className="flex justify-between gap-3 mt-10">
-          <button
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => aceitarCandidatura()}
-          >
-            Aceitar
-          </button>
-          <button
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-            onClick={() => recusarCandidatura()}
-          >
-            Recusar
-          </button>
-        </div>
+        {mostrarMensagem ? (
+          <span className="block text-center bg-green-100 border border-green-400 text-black font-bold px-4 py-2 rounded mt-2 text-xl">
+            {mensagem}
+          </span>
+        ) : (
+          <div className="flex justify-between gap-3 mt-10">
+            <button
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => aceitarCandidatura()}
+            >
+              Aceitar
+            </button>
+            <button
+              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => recusarCandidatura()}
+            >
+              Recusar
+            </button>
+          </div>
+        )}
         <div className='flex justify-center'>
           <button
             className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded mt-4"

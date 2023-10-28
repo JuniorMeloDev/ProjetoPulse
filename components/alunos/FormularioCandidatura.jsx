@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { format } from 'date-fns';
 
 export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
     
     const [habilidade, setHabilidade] = useState('');
+    const [mostrarMensagem, setMostrarMensagem] = useState(false);
 
     const token = JSON.parse(localStorage.getItem('token'))
 
@@ -13,8 +14,6 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        onSubmit(projeto.id, habilidade);
-        onClose();
 
         try {
             const response = await fetch('http://localhost:8080/orientacao/candidatar', {
@@ -29,13 +28,19 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
                 }),
             });
 
-            const data = await response.json();
-            // console.log('Dados enviados com sucesso:', data);
-            alert('candidatura com sucesso')
+            const data = await response.text();
+            console.log('Dados enviados com sucesso:', data);
+            setMostrarMensagem(true);
+
+            setTimeout(() => {
+                setMostrarMensagem(false);
+                onClose();
+                window.location.reload();
+            }, 3000);
 
         } catch (error) {
-            console.error('Erro ao enviar os dados (catch):', error);
-            alert("Candidatura cadastrada com sucesso!")
+            console.error('Erro ao enviar os dados', error);
+            alert("Erro ao enviar os dados!");
         }
     };
 
@@ -44,8 +49,12 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
             <div className="modal-bg fixed inset-0 bg-black opacity-50"></div>
             <div className="modal-content bg-white p-6 rounded-lg shadow-lg z-10">
                 <h2 className="text-xl font-bold mb-2">{projeto.titulo}</h2>
-                <p className="text-gray-700 text-justify line-clamp-3 mt-2"><strong className='text-zinc-950'>Data Inicial:</strong> {format(new Date(projeto.dataInicial), 'dd/MM/yyyy')}</p>
-                <p className="text-gray-700 text-justify line-clamp-3 mt-2"><strong className='text-zinc-950'>Data Final:</strong> {format(new Date(projeto.dataFinal), 'dd/MM/yyyy')}</p>
+                <p className="text-gray-700 text-justify line-clamp-3 mt-2">
+                    <strong className='text-zinc-950'>Data Inicial:</strong> {format(new Date(projeto.dataInicial), 'dd/MM/yyyy')}
+                </p>
+                <p className="text-gray-700 text-justify line-clamp-3 mt-2">
+                    <strong className='text-zinc-950'>Data Final:</strong> {format(new Date(projeto.dataFinal), 'dd/MM/yyyy')}
+                </p>
                 <form onSubmit={handleSubmit}>
                     <label className="block text-gray-700 text-base text-justify font-bold mb-4 mt-8 max-w-[22rem]">
                         Escreva um pequeno resumo sobre suas experiências acadêmicas, habilidades e conhecimentos:
@@ -57,21 +66,25 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
                         onChange={handleHabilidadeChange}
                         className="shadow appearance-none border rounded w-full h-48 py-1 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
-                    <div className='flex justify-between'>
-                    <button
-                            className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded mt-4"
-                            onClick={onClose} // Adicione esta linha para abrir o formulário
+                    <div className='flex justify-between mt-4'>
+                        <button
+                            className={`bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded ${mostrarMensagem ? 'hidden' : ''}`}
+                            onClick={onClose}
                         >
                             Voltar
                         </button>
                         <button
-                            className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded mt-4"
+                            className={`bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded ${mostrarMensagem ? 'hidden' : ''}`}
                             type="submit"
                         >
                             Enviar
                         </button>
-                      
                     </div>
+                    {mostrarMensagem && (
+                        <span className="block text-center bg-green-100 border border-green-400 text-black font-bold px-4 py-2 rounded mt-2 text-xl">
+                            Candidatura Enviada Com Sucesso!
+                        </span>
+                    )}
                 </form>
             </div>
         </div>

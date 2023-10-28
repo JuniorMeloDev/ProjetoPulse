@@ -57,7 +57,7 @@ export default function Sidebar() {
     <div className="flex flex-col items-center md:items-start">
 					<div className='h-20 flex items-center px-8'>
 						<Link href='/professor/meusprojetos' className='flex-none'>
-							<img src="../../imagens/Logo.png" width={100} className="mt-9 rounded-full" />
+							<img src="../../imagens/LogoSemNome.png" width={100} className="mt-9 rounded-full" />
 						</Link>
 					</div>
 				</div>

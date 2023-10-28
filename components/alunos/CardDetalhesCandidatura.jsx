@@ -13,13 +13,28 @@ function ProjetoCard({ projeto }) {
         setModalAberto(false);
     };
 
+    let corFundo;
+    switch (projeto.status) {
+        case 'ANÁLISE':
+            corFundo = 'bg-yellow-200 hover:bg-yellow-300'; // Cor amarela para status 'Análise'
+            break;
+        case 'APROVADO':
+            corFundo = 'bg-blue-300 hover:bg-blue-400'; // Cor verde para status 'Aprovado'
+            break;
+        case 'RECUSADO':
+            corFundo = 'bg-red-300 hover:bg-red-400'; // Cor vermelha para status 'Recusado'
+            break;
+        default:
+            corFundo = 'bg-gray-300'; // Cor padrão (caso o status não seja reconhecido)
+    }
+
     return (
         <div>
             <div
-                className="max-w-md mx-auto mt-2 mb-8 cursor-pointer rounded-md shadow-md shadow-gray-200 hover:shadow-blue-400/80 hover:shadow-2xl hover:bg-gray-50"
+                className={`max-w-md mx-auto mt-2 mb-8 cursor-pointer rounded-md shadow-md hover:shadow-2xl ${corFundo}`}
                 onClick={abrirModal}
             >
-                <div className="bg-slate-100 p-6 rounded-lg shadow-lg">
+                <div className="p-6 rounded-lg shadow-lg">
                     <h2 className="text-xl font-bold mb-2 line-clamp-1 ">{projeto.titulo}</h2>
                     <p className="text-gray-700 mb-4 line-clamp-2"><strong>Descrição: </strong> {projeto.descricao}</p>
                 </div>

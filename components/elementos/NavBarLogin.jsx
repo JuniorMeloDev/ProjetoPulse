@@ -14,7 +14,7 @@ const NavbarLogin = () => {
         <div className="flex items-center justify-between">
           <Link legacyBehavior href="/">
             <a className="flex items-center">
-              <img src="./imagens/logo.png" className="h-14 mr-4 rounded-full" alt="Logo" />
+              <img src="./imagens/LogoSemNome.png" className="h-14 mr-4 rounded-full" alt="Logo" />
             </a>
           </Link>
           

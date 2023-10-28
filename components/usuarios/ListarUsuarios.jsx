@@ -1,11 +1,9 @@
 
 import React from 'react'
-import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 
 export default function Home() {
 
-  const {data :session} = useSession()
 
   const [usuarios, setUsuarios] = useState([]);
 
@@ -13,25 +11,29 @@ export default function Home() {
 
     useEffect(() => {
         async function fetchUsuarios() {
-            try {
-                const response = await fetch('http://localhost:8080/listar/users', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`,
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('Erro ao obter a lista de Usuaríos');
+          try {
+            const response = await fetch('http://localhost:8080/listar/users', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 }
-
-                const data = await response.json();
-                setUsuarios(data);
-            } catch (error) {
-                console.error(error);
+            });
+        
+            if (!response.ok) {
+                if (response.status === 403) {
+                    throw new Error('Acesso não autorizado');
+                } else {
+                    throw new Error('Erro ao obter a lista de Usuários');
+                }
             }
+        
+            const data = await response.json();
+            setUsuarios(data);
+        } catch (error) {
+            console.error(error.message);
         }
+      }
 
         fetchUsuarios();
     }, []);

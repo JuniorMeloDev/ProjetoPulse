@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/professores/LayoutProfessor'
 import CadastroProjetos from '@/components/professores/CadastroProjetos'
-import MeusProjetos from '@/components/professores/ProjetosCadastrados'
+import ProjetosCadastrados from '@/components/professores/ProjetosCadastrados'
+import BotaoNovoProjeto from '@/components/elementos/BotaoNovoProjeto';
 
 
 export default function ProjetosProf() {
@@ -28,15 +29,8 @@ export default function ProjetosProf() {
   return (
     <div>
       <Layout>
-        <MeusProjetos />
-        <div className='text-center'>
-          <button
-            onClick={openModal}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
-          >
-            Novo Projeto
-          </button>
-        </div>
+        <ProjetosCadastrados />
+        <BotaoNovoProjeto onClick={openModal} />
         <CadastroProjetos isOpen={isModalOpen} onClose={closeModal} />
       </Layout>
     </div>

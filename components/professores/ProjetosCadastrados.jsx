@@ -10,7 +10,7 @@ function ProjetosCadastrados() {
     const [projetos, setProjetos] = useState([]);
     const [projetosFiltrados, setProjetosFiltrados] = useState([]);
     const [paginaCorrente, setpaginaCorrente] = useState(1); //inicia na pagina 1
-    const [projetosPaginas, setProjetosPaginas] = useState(6); // quantos serão visualizados por página
+    const [projetosPaginas, setProjetosPaginas] = useState(8); // quantos serão visualizados por página
     const [candidatos, setCandidatos] = useState([]);
     const [mostrarCandidatos, setMostrarCandidatos] = useState(false);
 
@@ -51,7 +51,7 @@ function ProjetosCadastrados() {
             if (window.innerWidth < 500) {
                 setProjetosPaginas(2); // Altere o número de projetos por página para x em telas menores que 500px
             } else {
-                setProjetosPaginas(6); // Caso contrário, mantenha o padrão de x projetos por página
+                setProjetosPaginas(8); // Caso contrário, mantenha o padrão de x projetos por página
             }
         }
 
@@ -120,20 +120,20 @@ function ProjetosCadastrados() {
     // funcão para pesquisar projetos pelo titulo, descrição ou requisitos
     const handleSearch = ({ buscaProjeto, tipoProjeto }) => {
         const projetosFiltrados = projetos.filter(projeto => {
-            const matchBuscaProjeto = buscaProjeto ? 
+            const matchBuscaProjeto = buscaProjeto ?
                 (projeto.titulo && projeto.titulo.toLowerCase().includes(buscaProjeto.toLowerCase())) ||
                 (projeto.descricao && projeto.descricao.toLowerCase().includes(buscaProjeto.toLowerCase())) ||
-                (projeto.requesito && projeto.requesito.toLowerCase().includes(buscaProjeto.toLowerCase())) 
+                (projeto.requesito && projeto.requesito.toLowerCase().includes(buscaProjeto.toLowerCase()))
                 : true;
             const matchTipoProjeto = tipoProjeto !== 'Selecione' ? (projeto.tipo && projeto.tipo.toLowerCase() === tipoProjeto.toLowerCase()) : true;
-    
+
             return matchBuscaProjeto && matchTipoProjeto;
         });
-    
+
         setProjetosFiltrados(projetosFiltrados);
         setpaginaCorrente(1); // Resetando para a primeira página ao realizar uma nova busca
     };
-    
+
 
     // constantes para uso de paginação. junto com o componente 'Paginação.JSX'
     const indexOfLastProject = paginaCorrente * projetosPaginas;
@@ -144,33 +144,34 @@ function ProjetosCadastrados() {
 
 
     return (
-        <div className="max-h-screen flex flex-col">
-            <div className="flex-grow">
+        <div className="">
+            <div className="">
                 <BarraDePesquisa onSearch={handleSearch} />
                 {projetos.length > 0 ? (
-                   <div className={`grid ${window.innerWidth < 500 ? 'grid-cols-1' : 'grid-cols-3'} `}>
-                   {currentProjects.map(projeto => (
-                       <ProjetoCard
-                           key={projeto.id}
-                           onDelete={() => handleDelete(projeto.id)}
-                           projeto={projeto}
-                           onCandidatos={handleCandidatos}
-                       />
-                   ))}
-               </div>
-               
+                    <div className={`grid ${window.innerWidth < 500 ? 'grid-cols-1' : 'grid-cols-4'} `}>
+                        {currentProjects.map(projeto => (
+                            <ProjetoCard
+                                key={projeto.id}
+                                onDelete={() => handleDelete(projeto.id)}
+                                projeto={projeto}
+                                onCandidatos={handleCandidatos}
+                            />
+                        ))}
+                    </div>
+
                 ) : (
                     <p className="text-center mt-4">
                         Olá Professor, Cadastre o seu primeiro projeto!
                     </p>
                 )}
-                <div className="bottom-1" >
-                    <Paginacao
-                        projetosPaginas={projetosPaginas}
-                        totalProjects={projetosFiltrados.length}
-                        paginate={paginate}
-                    />
-                </div>
+
+            </div>
+            <div>
+                <Paginacao
+                    projetosPaginas={projetosPaginas}
+                    totalProjects={projetosFiltrados.length}
+                    paginate={paginate}
+                />
             </div>
             {mostrarCandidatos && (
                 <CardCandidatos

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/professores/LayoutProfessor'
-import SalvarImagem from '@/components/elementos/SalvarImagem'
+import TelaConfiguracao from '@/components/elementos/TelaConfiguracao';
 
 export default function Configuracoes() {
 
@@ -15,13 +15,7 @@ export default function Configuracoes() {
   return (
     <Layout>
       <div>
-        <h1 className='text-2xl font-bold mb-4'>Dados da Sessão: </h1>
-        <p>Usuário: {session.user.nome}</p>
-        <p>Email: {session.user.email}</p>
-        <div className='mt-16'>
-          <p className='mb-1 font-bold'>Selecionar imagem de perfil</p>
-          <SalvarImagem />
-        </div>
+        <TelaConfiguracao/>
       </div>
     </Layout>
   )

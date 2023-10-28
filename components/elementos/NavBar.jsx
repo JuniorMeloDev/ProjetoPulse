@@ -12,7 +12,7 @@ const Navbar = () => {
     <nav className="border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="http://localhost:3000" className="flex items-center">
-          <img src="./imagens/logo.png" className="h-10 mr-3 rounded-full" alt="Logo" />
+          <img src="./imagens/LogoSemNome.png" className="h-10 mr-3 rounded-full" alt="Logo" />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Projeto Pulse</span>
         </a>
         <div className="md:hidden"> {/* Adicione esta classe para ocultar em telas maiores */}

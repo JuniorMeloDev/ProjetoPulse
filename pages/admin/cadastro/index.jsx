@@ -1,11 +1,9 @@
-'use client'
-
 import React, { useState } from 'react'
 import styles from '../../../styles/login.module.css'
 
 export default function CadastroUsuario() {
 
-    const token = JSON.parse(localStorage.getItem('token'))
+  
 
     const [usuario, setUsuario] = useState({
         nome: "",
@@ -21,6 +19,7 @@ export default function CadastroUsuario() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const token = JSON.parse(localStorage.getItem('token'))
             console.log('Enviando requisição para o servidor...');
             console.log('Token:', token); // Verifica se o token está correto
             console.log('Usuario a ser enviado:', usuario); // Verifica se os dados do projeto estão corretos

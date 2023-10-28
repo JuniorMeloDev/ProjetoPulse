@@ -5,6 +5,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
     if (!isOpen) return null;
 
     const token = JSON.parse(localStorage.getItem('token'))// pegando o token do localStorage
+    const [mostrarMensagemCadastro, setMostrarMensagemCadastro] = useState(false);
 
     const [projeto, setProjeto] = useState({
         titulo: '',
@@ -23,6 +24,19 @@ export default function CadastroProjetos({ isOpen, onClose }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const dataAtual = new Date().toISOString().split('T')[0];
+
+        if (projeto.dataInicial < dataAtual) {
+            alert("A data de início deve ser igual ou posterior à data atual.");
+            return;
+        }
+
+        if (projeto.dataFinal < projeto.dataInicial) {
+            alert("A data de término deve ser igual ou posterior à data de início.");
+            return;
+        }
+
         try {
             const response = await fetch('http://localhost:8080/projeto/registrar', {
                 method: 'POST',
@@ -32,25 +46,26 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                 },
                 body: JSON.stringify(projeto),
             });
-            console.log('resposta: ', response.text())
 
             if (response.ok) {
-                const data = await response.json();
+                const data = await response.text()
                 console.log('Dados enviados com sucesso:', data);
-                alert('Projeto Cadastrado com Sucesso');
-                onClose();
+                setMostrarMensagemCadastro(true);
+                setTimeout(() => {
+                    setMostrarMensagemCadastro(false);
+                    onClose();
+                    window.location.reload();
+                }, 3000);
             } else {
                 console.error('Erro ao enviar os dados:', response.statusText);
             }
 
         } catch (error) {
             console.error('Erro ao enviar os dados:', error);
-            alert("Projeto Cadastrado com Sucesso");
-            onClose();
-            window.location.reload();
+            alert('Erro ao Cadastrar o projeto');
         }
-
-    };
+        
+    }
 
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50">
@@ -158,14 +173,20 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                 </select>
                             </div>
                             <div className="flex items-center justify-end">
-
+                            {!mostrarMensagemCadastro && (
                                 <button
-                                    onClick={handleSubmit}
+                                    type="submit"
                                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
                                 >
                                     Salvar
                                 </button>
-                            </div>
+                            )}
+                        </div>
+                        {mostrarMensagemCadastro && (
+                            <span className="block text-center bg-green-100 border border-green-400 text-black font-bold px-4 py-2 rounded mt-2 text-xl">
+                                Projeto Cadastrado com Sucesso
+                            </span>
+                        )}
                         </form>
                     </div>
                 </div>

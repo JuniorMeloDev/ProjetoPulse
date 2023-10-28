@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import BarraDePesquisa from '../elementos/BarraDePesquisa';
 import Paginacao from '../elementos/Paginacao';
 import CardDetalhesCandidatura from './CardDetalhesCandidatura';
+import LegendaStatus from '../elementos/LegendaStartus';
 
 
 export default function ProjetosCandidatados() {
@@ -97,6 +98,7 @@ export default function ProjetosCandidatados() {
                     paginate={paginate}
                 />
             </div>
+            <LegendaStatus/>
         </div>
     );
 }

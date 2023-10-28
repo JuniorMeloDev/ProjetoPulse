@@ -16,8 +16,7 @@ export default function Inicio() {
   };
 
   return (
-    <Layout>
-     
+    <Layout>     
       <ProjetosCadastrados />
     </Layout>
   )

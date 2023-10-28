@@ -93,6 +93,7 @@ export default function NotificacaoCandidaturas() {
         const updatedMensagens = mensagens.filter(mensagem => mensagem.id !== mensagemId);
         setMensagens(updatedMensagens);
         setMensagensFiltradas(updatedMensagens);
+        alert("Mensagem deletada com sucesso!")
       } else {
         console.error('Erro ao deletar a mensagem:', response.statusText);
       }
