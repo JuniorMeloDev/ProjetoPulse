@@ -109,7 +109,7 @@ export default function Sidebar() {
 						</div>
 					)}
 					<div className='ml-4'>
-						<p>{session.user.nome}</p>
+						<Link href="/professor/configuracoes">{session.user.nome}</Link>
 					</div>
 				</div>
 			</div>

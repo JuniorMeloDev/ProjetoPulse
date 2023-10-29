@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const EsqueciSenhaForm = () => {
+const EsqueciSenha = () => {
   const [SenhaEmail, setSenhaEmail] = useState('');
 
   const handleSubmit = async (e) => {
@@ -42,4 +42,4 @@ const EsqueciSenhaForm = () => {
   );
 };
 
-export default EsqueciSenhaForm;
+export default EsqueciSenha;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import SalvarImagem from './SalvarImagem';
+import Link from 'next/link';
 
 export default function TelaConfiguracao() {
 
@@ -109,7 +110,10 @@ export default function TelaConfiguracao() {
             <div className='border border-gray-300 w-full rounded-md p-4 mb-3'>
                 <div>
                     <p className='font-bold pb-1'>Foto do Usuário</p>
+                    <div className='flex justify-between'>
                     <SalvarImagem />
+                    <Link href="/trocarSenha" className="flex justify-center items-center bg-blue-900 hover:bg-blue-700 text-white font-bold w-28 h-12 mt-7 rounded">Trocar Senha</Link>
+                    </div>
                 </div>
             </div>
             <form onSubmit={handleSubmit} className="border border-gray-300 p-4 rounded-md">
