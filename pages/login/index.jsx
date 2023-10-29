@@ -6,8 +6,8 @@ import styles from '@/styles/login.module.css'
 import { FiLock } from "react-icons/fi"
 import { AiOutlineMail } from "react-icons/ai"
 import { useRouter } from 'next/navigation'
-import EsqueciSenhaForm from "@/components/elementos/EsqueciSenha";
 import NavbarLogin from "@/components/elementos/NavBarLogin";
+import Link from "next/link";
 
 export default function Login() {
   const { data: session, status } = useSession();
@@ -83,6 +83,7 @@ export default function Login() {
               Login
             </button>
           </div>
+          <Link href="/recuperarSenha" className="text-center">Esqueceu sua senha</Link>
         </form>
         <h1>Status:{status} </h1>
         <button onClick={signOut}>sair</button>
