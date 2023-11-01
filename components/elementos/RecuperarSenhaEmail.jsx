@@ -9,7 +9,7 @@ export default function RecuperarSenhaEmail() {
     const [mostrarMensagem, setMostrarMensagem] = useState(false)
 
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await fetch('http://localhost:8080/auth/recuperar/email', {
@@ -33,7 +33,7 @@ export default function RecuperarSenhaEmail() {
             alert('Erro ao enviar e-mail de recuperação(catch). Por favor, tente novamente mais tarde.');
         }
     }
-    
+
 
     return (
         <div className={Styles.container}>
@@ -42,7 +42,7 @@ export default function RecuperarSenhaEmail() {
                 <div className={Styles.page}>
                     <form className={Styles.formLogin} onSubmit={handleSubmit}>
                         <div className='flex '>
-                        <AiOutlineMail className={Styles.icons} />
+                            <AiOutlineMail className={Styles.icons} />
                             <input
                                 type="email"
                                 placeholder="Digite seu email"
@@ -56,8 +56,8 @@ export default function RecuperarSenhaEmail() {
                             Enviar
                         </button>
                         {mostrarMensagem && (
-                            <span className="block text-center bg-green-100 border border-green-400 text-black font-bold px-4 py-2 rounded mt-2 text-xl">
-                                Email enviado com sucesso
+                            <span className="block text-center bg-green-100 border border-green-400 text-green-700 font-bold text-base px-4 py-2 rounded mt-2">
+                                Email de recuperação<br />enviado com sucesso
                             </span>
                         )}
                     </form>

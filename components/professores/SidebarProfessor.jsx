@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { signOut, useSession } from 'next-auth/react'
-import { AiOutlineHome, AiOutlineSetting } from 'react-icons/ai'
+import { AiOutlineSetting } from 'react-icons/ai'
 import { BiHelpCircle } from 'react-icons/bi'
 import { IoIosNotificationsOutline } from 'react-icons/io'
 import { RxExit } from 'react-icons/rx'
@@ -57,7 +57,7 @@ export default function Sidebar() {
     <div className="flex flex-col items-center md:items-start">
 					<div className='h-20 flex items-center px-8'>
 						<Link href='/professor/meusprojetos' className='flex-none'>
-							<img src="../../imagens/LogoSemNome.png" width={100} className="mt-9 rounded-full" />
+							<img src="../../imagens/LogoSemNome.png" width={110} className="mt-9 rounded-full" />
 						</Link>
 					</div>
 				</div>

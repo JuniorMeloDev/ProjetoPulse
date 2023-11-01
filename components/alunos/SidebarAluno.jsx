@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { signOut, useSession } from 'next-auth/react'
 import { AiOutlineHome, AiOutlineSetting } from 'react-icons/ai'
 import { BiHelpCircle } from 'react-icons/bi'
@@ -14,6 +15,7 @@ export default function Sidebar() {
 
 	const [imagemUsuario, setimagemUsuario] = useState('');
 	const {data: session} = useSession()
+	const router = useRouter();
 
 	useEffect(() => {
 		async function carregarImagem() {
@@ -53,7 +55,7 @@ export default function Sidebar() {
 				<div class="flex flex-col">
 					<div className='h-20 flex items-center px-8'>
 						<Link href='/alunos/inicio' className='flex-none'>
-							<img src="../../imagens/LogoSemNome.png" width={120} className="mt-9 rounded-full" />
+							<img src="../../imagens/LogoSemNome.png" width={110} className="mt-9 rounded-full" />
 						</Link>
 					</div>
 				</div>
@@ -61,19 +63,19 @@ export default function Sidebar() {
 				<div className="pt-7 pb-23 divide-y divide-gray-700">
 					<ul className="pt-2 pb-4 space-y-1 text-sm">
 						<li className="dark:bg-gray-800 dark:text-gray-50">
-							<Link href="/alunos/inicio" className="flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-500">
+						<Link href="/alunos/inicio" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/alunos/inicio' ? 'bg-slate-400' : ''}`}>
 								<AiOutlineHome className='w-5 h-5' />
 								<span>Início</span>
 							</Link>
 						</li>
 						<li>
-							<Link href="/alunos/notificacoes" className="flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-500">
+						<Link href="/alunos/notificacoes" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/alunos/notificacoes' ? 'bg-slate-400' : ''}`}>
 								<IoIosNotificationsOutline className='w-5 h-5' />
 								<span>Notificações</span>
 							</Link>
 						</li>
 						<li>
-							<Link href="/alunos/meusprojetos" className="flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-500">
+						<Link href="/alunos/meusprojetos" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/alunos/meusprojetos' ? 'bg-slate-400' : ''}`}>
 								<VscNotebook className='w-5 h-5' />
 								<span>Meus projetos</span>
 							</Link>
@@ -81,13 +83,13 @@ export default function Sidebar() {
 					</ul>
 					<ul className="pt-4 pb-2 space-y-1 text-sm">
 						<li>
-							<Link href="/alunos/configuracoes" className="flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-500">
+						<Link href="/alunos/configuracoes" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/alunos/configuracoes' ? 'bg-slate-400' : ''}`}>
 								<AiOutlineSetting className='w-5 h-5' />
 								<span>Configurações</span>
 							</Link>
 						</li>
 						<li>
-							<Link href="/alunos/ajuda" className="flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-500">
+						<Link href="/alunos/ajuda" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/alunos/ajuda' ? 'bg-slate-400' : ''}`}>
 								<BiHelpCircle className='w-5 h-5' />
 								<span>Ajuda</span>
 							</Link>

@@ -2,9 +2,12 @@ import { useState } from "react";
 import { format } from 'date-fns';
 
 export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
-    
+
     const [habilidade, setHabilidade] = useState('');
     const [mostrarMensagem, setMostrarMensagem] = useState(false);
+    const [jaSolicitou, setJaSolicitou] = useState(false); //verifica se ja solicitou a candidatura
+    const [vagasDisponiveis, setVagasDisponiveis] = useState(false);
+
 
     const token = JSON.parse(localStorage.getItem('token'))
 
@@ -28,20 +31,38 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
                 }),
             });
 
-            const data = await response.text();
-            console.log('Dados enviados com sucesso:', data);
-            setMostrarMensagem(true);
+            if (projeto.vagas == 0) {
+                setVagasDisponiveis(true);
+                return;
+            }
+            if (response.ok) {
+                const data = await response.text();
+                console.log('Candidatura enviada com sucesso:', data);
+                setMostrarMensagem(true);
 
-            setTimeout(() => {
-                setMostrarMensagem(false);
-                onClose();
-                window.location.reload();
-            }, 3000);
+                setTimeout(() => {
+                    setMostrarMensagem(false);
+                    onClose();
+                    window.location.reload();
+                }, 3000);
+                
+                } else if (response.status === 400) {
+                    const data = await response.text();
+                    if(data === "Usuario ja cadastrado nesse projeto") {
+                        setJaSolicitou(true)
+                        console.error('Erro ao candidatar:', data);
+                    }
+    
+                 } else {
+                console.error('Erro ao candidatar:', response.statusText);
+                alert('Erro ao candidatar. Por favor, tente novamente mais tarde.');
+            }
 
         } catch (error) {
             console.error('Erro ao enviar os dados', error);
             alert("Erro ao enviar os dados!");
         }
+
     };
 
     return (
@@ -60,7 +81,7 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
                         Escreva um pequeno resumo sobre suas experiências acadêmicas, habilidades e conhecimentos:
                     </label>
                     <textarea
-                        required 
+                        required
                         type="text"
                         value={habilidade}
                         onChange={handleHabilidadeChange}
@@ -68,21 +89,32 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
                     />
                     <div className='flex justify-between mt-4'>
                         <button
-                            className={`bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded ${mostrarMensagem ? 'hidden' : ''}`}
+                            className='bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded'
                             onClick={onClose}
                         >
                             Voltar
                         </button>
                         <button
-                            className={`bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded ${mostrarMensagem ? 'hidden' : ''}`}
+                            className='bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-4 rounded'
                             type="submit"
                         >
                             Enviar
                         </button>
                     </div>
                     {mostrarMensagem && (
-                        <span className="block text-center bg-green-100 border border-green-400 text-black font-bold px-4 py-2 rounded mt-2 text-xl">
+                        <span className="block text-center bg-green-100 border border-green-400 text-green-700 font-bold text-base px-4 py-2 rounded mt-2">
                             Candidatura Enviada Com Sucesso!
+                        </span>
+                    )}
+
+                    {jaSolicitou && (
+                        <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold text-base px-4 py-2 rounded mt-2">
+                            Você já solicitou a candidatura para esse projeto!
+                        </span>
+                    )}
+                     {vagasDisponiveis && (
+                        <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold text-base px-4 py-2 rounded mt-2">
+                            Vagas esgotadas!
                         </span>
                     )}
                 </form>

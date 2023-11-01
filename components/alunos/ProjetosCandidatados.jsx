@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import BarraDePesquisa from '../elementos/BarraDePesquisa';
+import BarraDePesquisa from './BarraDePesquisaProjetos';
 import Paginacao from '../elementos/Paginacao';
 import CardDetalhesCandidatura from './CardDetalhesCandidatura';
-import LegendaStatus from '../elementos/LegendaStartus';
+import LegendaStatus from '../elementos/LegendaStatus';
 
 
 export default function ProjetosCandidatados() {
@@ -11,6 +11,8 @@ export default function ProjetosCandidatados() {
     const [projetosFiltrados, setProjetosFiltrados] = useState([]);
     const [paginaCorrente, setpaginaCorrente] = useState(1); //inicia na pagina 1
     const projetosPaginas = 8; // quantos serão visualizados por página
+    const [statusFiltro, setStatusFiltro] = useState('Todos');
+
 
 
     useEffect(() => {
@@ -46,19 +48,21 @@ export default function ProjetosCandidatados() {
 
 
     // funcão para pesquisar projetos pelo titulo, descrição ou requisitos
-    const handleSearch = ({ buscaProjeto, tipoProjeto }) => {
+    const handleSearch = ({ buscaProjeto, tipoProjeto, statusFiltro }) => {
         const projetosFiltrados = projetos.filter(projeto => {
             const matchBuscaProjeto = buscaProjeto ? projeto.titulo.toLowerCase().includes(buscaProjeto.toLowerCase()) ||
                 projeto.descricao.toLowerCase().includes(buscaProjeto.toLowerCase()) ||
                 projeto.requesito.toLowerCase().includes(buscaProjeto.toLowerCase()) : true;
             const matchTipoProjeto = tipoProjeto !== 'Selecione' ? projeto.tipo.toLowerCase() === tipoProjeto.toLowerCase() : true;
-
-            return matchBuscaProjeto && matchTipoProjeto;
+            const matchStatus = statusFiltro !== 'Todos' ? projeto.status.toLowerCase() === statusFiltro.toLowerCase() : true;
+    
+            return matchBuscaProjeto && matchTipoProjeto && matchStatus;
         });
-
+    
         setProjetosFiltrados(projetosFiltrados);
         setpaginaCorrente(1); // Resetando para a primeira página ao realizar uma nova busca
     };
+    
 
     // constantes para uso de paginação. junto com o componente 'Paginação.JSX'
     const indexOfLastProject = paginaCorrente * projetosPaginas;
@@ -77,6 +81,7 @@ export default function ProjetosCandidatados() {
                         <CardDetalhesCandidatura
                             key={projeto.id}
                             projeto={projeto}
+                            statusFiltro={statusFiltro}
                             onCandidatar={() => {
                                 setProjetoExpandido(projeto);
                                 setMostrarFormulario(true);
