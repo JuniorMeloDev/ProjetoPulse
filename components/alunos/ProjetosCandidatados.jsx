@@ -11,7 +11,7 @@ export default function ProjetosCandidatados() {
     const [projetosFiltrados, setProjetosFiltrados] = useState([]);
     const [paginaCorrente, setpaginaCorrente] = useState(1); //inicia na pagina 1
     const projetosPaginas = 8; // quantos serão visualizados por página
-    const [statusFiltro, setStatusFiltro] = useState('Todos');
+    const [statusFiltro, setStatusFiltro] = useState('Selecione');
 
 
 
@@ -47,14 +47,14 @@ export default function ProjetosCandidatados() {
     }, []);
 
 
-    // funcão para pesquisar projetos pelo titulo, descrição ou requisitos
+    // funcão para pesquisar projetos pelo titulo, descrição, requisitos ou status
     const handleSearch = ({ buscaProjeto, tipoProjeto, statusFiltro }) => {
         const projetosFiltrados = projetos.filter(projeto => {
             const matchBuscaProjeto = buscaProjeto ? projeto.titulo.toLowerCase().includes(buscaProjeto.toLowerCase()) ||
                 projeto.descricao.toLowerCase().includes(buscaProjeto.toLowerCase()) ||
-                projeto.requesito.toLowerCase().includes(buscaProjeto.toLowerCase()) : true;
+                projeto.requisito.toLowerCase().includes(buscaProjeto.toLowerCase()) : true;
             const matchTipoProjeto = tipoProjeto !== 'Selecione' ? projeto.tipo.toLowerCase() === tipoProjeto.toLowerCase() : true;
-            const matchStatus = statusFiltro !== 'Todos' ? projeto.status.toLowerCase() === statusFiltro.toLowerCase() : true;
+            const matchStatus = statusFiltro !== 'Selecione' ? projeto.status.toLowerCase() === statusFiltro.toLowerCase() : true;
     
             return matchBuscaProjeto && matchTipoProjeto && matchStatus;
         });
@@ -90,9 +90,9 @@ export default function ProjetosCandidatados() {
                     ))
                 ) : (
                     projetos.length > 0 ? (
-                        <p>Nenhum projeto encontrado</p>
+                        <p>Nenhum projeto encontrado...</p>
                     ) : (
-                        <p>Carregando...</p>
+                        <p>Nenhum projeto encontrado...</p>
                     )
                 )}
             </div>

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export default function BarraDePesquisa({ onSearch }) {
   const [buscaProjeto, setNomeProjeto] = useState('');
   const [tipoProjeto, setTipoProjeto] = useState('Selecione');
-  const [statusFiltro, setStatusFiltro] = useState('Todos');
+  const [statusFiltro, setStatusFiltro] = useState('Selecione');
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -28,7 +28,7 @@ export default function BarraDePesquisa({ onSearch }) {
             value={statusFiltro}
             onChange={(e) => setStatusFiltro(e.target.value)}
         >
-            <option value="Todos">Todos</option>
+            <option value="Selecione">Selecione</option>
             <option value="ANÁLISE">Análise</option>
             <option value="APROVADO">Aprovado</option>
             <option value="RECUSADO">Recusado</option>

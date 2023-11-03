@@ -11,6 +11,7 @@ export default function NotificacaoCandidaturas() {
   const [mensagensPorPaginas, setmensagensPorPaginas] = useState(8);
   const [VisibildadePaginas, setVisibildadePaginas] = useState(5);
   const [paginaInicial, setpaginaInicial] = useState(1);
+  const [mostrarMensagemDeletada, setMostrarMensagemDeletada] = useState(false);
 
   useEffect(() => {
     async function listarMensagens() {
@@ -93,7 +94,11 @@ export default function NotificacaoCandidaturas() {
         const updatedMensagens = mensagens.filter(mensagem => mensagem.id !== mensagemId);
         setMensagens(updatedMensagens);
         setMensagensFiltradas(updatedMensagens);
-        alert("Mensagem deletada com sucesso!")
+        setMostrarMensagemDeletada(true)
+
+        setTimeout(() => {
+          setMostrarMensagemDeletada(false)
+        }, 3000);
       } else {
         console.error('Erro ao deletar a mensagem:', response.statusText);
       }
@@ -130,9 +135,16 @@ export default function NotificacaoCandidaturas() {
     paginaInicials.push(i);
   }
 
+  const highlightWord = (text, wordToHighlight) => {
+    const regex = new RegExp(`\\b${wordToHighlight}\\b`, 'gi');
+    return text.replace(regex, (match) => `<strong>${match}</strong>`);
+  };
+
   return (
     <div>
       <BarraDePesquisaNotificacao onSearch={handleSearch} />
+      {mostrarMensagemDeletada &&
+        <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold text-base rounded mt-1">Mensagem deletada com sucesso!</span>}
       <div className="overflow-x-auto mt-4">
         <table className="min-w-full border-collapse border border-gray-300">
           <thead>
@@ -147,7 +159,9 @@ export default function NotificacaoCandidaturas() {
             {currentMessages.map(mensagem => (
               <tr key={mensagem.id} className="hover:bg-gray-100 cursor-pointer text-center">
                 <td className="py-2 px-4 border border-gray-300">{mensagem.remetente}</td>
-                <td className="py-2 px-4 border border-gray-300 text-justify">{mensagem.mensagem}</td>
+                <td className="py-2 px-4 border border-gray-300 text-justify">
+                  <div dangerouslySetInnerHTML={{ __html: highlightWord(mensagem.mensagem, 'suaPalavra') }} />
+                </td>
                 <td className="py-2 px-4 border border-gray-300">{format(new Date(mensagem.horarioEnvio), 'dd/MM/yyyy HH:mm a')}</td>
                 <td className="py-2 px-4 border border-gray-300">
                   <button

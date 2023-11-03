@@ -13,6 +13,7 @@ function ProjetosCadastrados() {
     const [projetosPaginas, setProjetosPaginas] = useState(8); // quantos serão visualizados por página
     const [candidatos, setCandidatos] = useState([]);
     const [mostrarCandidatos, setMostrarCandidatos] = useState(false);
+    const [mostrarMensagemDeletada, setMostrarMensagemDeletada] = useState(false)
 
 
     useEffect(() => {
@@ -107,7 +108,11 @@ function ProjetosCadastrados() {
                 const updatedProjetos = projetos.filter(projeto => projeto.id !== projetoId);
                 setProjetos(updatedProjetos);
                 setProjetosFiltrados(updatedProjetos);
-                alert("Projeto deletado com sucesso!")
+                setMostrarMensagemDeletada(true) //mostrar a mensagem 'Projeto deletado...'
+                setTimeout(() => {
+                    setMostrarMensagemDeletada(false)// esconde a mensagem
+                }, 3000)
+
             } else {
                 console.error('Erro ao deletar o projeto:', response.statusText);
             }
@@ -147,6 +152,9 @@ function ProjetosCadastrados() {
         <div className="">
             <div className="">
                 <BarraDePesquisa onSearch={handleSearch} />
+                {mostrarMensagemDeletada && (
+                    <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold text-base px-4 py-2 rounded mt-2">Projeto deletado com sucesso!</span>
+                )}
                 {projetos.length > 0 ? (
                     <div className={`grid ${window.innerWidth < 500 ? 'grid-cols-1' : 'grid-cols-4'} `}>
                         {currentProjects.map(projeto => (

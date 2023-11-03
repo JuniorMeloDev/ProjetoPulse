@@ -51,7 +51,7 @@ function MeusProjetosCadastrados() {
             const matchBuscaProjeto = buscaProjeto ?
                 (projeto.titulo && projeto.titulo.toLowerCase().includes(buscaProjeto.toLowerCase())) ||
                 (projeto.descricao && projeto.descricao.toLowerCase().includes(buscaProjeto.toLowerCase())) ||
-                (projeto.requesito && projeto.requesito.toLowerCase().includes(buscaProjeto.toLowerCase()))
+                (projeto.requisito && projeto.requisito.toLowerCase().includes(buscaProjeto.toLowerCase()))
                 : true;
             const matchTipoProjeto = tipoProjeto !== 'Selecione' ? (projeto.tipo && projeto.tipo.toLowerCase() === tipoProjeto.toLowerCase()) : true;
 
@@ -90,7 +90,7 @@ function MeusProjetosCadastrados() {
                     projetos.length > 0 ? (
                         <p>Nenhum projeto encontrado</p>
                     ) : (
-                        <p>Carregando...</p>
+                        <p>Nenhum projeto encontrado...</p>
                     )
                 )}
             </div>

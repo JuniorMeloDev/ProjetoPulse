@@ -72,7 +72,7 @@ function CardDetalhesCandidato({ candidato, onClose }) {
           <strong>Resumo acadêmico:</strong> {candidato.habilidade}
         </p>
         {mostrarMensagem ? (
-          <span className="block text-center bg-green-100 border border-green-400 text-black font-bold px-4 py-2 rounded mt-2 text-xl">
+          <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold text-base px-2 py-4 rounded mt-2">
             {mensagem}
           </span>
         ) : (

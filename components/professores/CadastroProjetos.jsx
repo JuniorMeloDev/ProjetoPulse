@@ -6,6 +6,8 @@ export default function CadastroProjetos({ isOpen, onClose }) {
 
     const token = JSON.parse(localStorage.getItem('token'))// pegando o token do localStorage
     const [mostrarMensagemCadastro, setMostrarMensagemCadastro] = useState(false);
+    const [mostrarMensagemData, setMostrarMensagemData] = useState(false)
+    const [mostrarMensagemVagas, setMostrarMensagemVagas] = useState(false)
 
     const [projeto, setProjeto] = useState({
         titulo: '',
@@ -25,15 +27,29 @@ export default function CadastroProjetos({ isOpen, onClose }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const dataAtual = new Date().toISOString().split('T')[0];
+        if (projeto.vagas === 0) {
+            setMostrarMensagemVagas(true)
+            setTimeout(() => {
+                setMostrarMensagemVagas(false)
+            }, 3000);
+            return //nao deixa cadastrar o projeto se tiver 0 vagas
+        }
+
+        const dataAtual = new Date().toLocaleDateString('en-CA'); // 'YYYY-MM-DD'
 
         if (projeto.dataInicial < dataAtual) {
-            alert("A data de início deve ser igual ou posterior à data atual.");
+            setMostrarMensagemData("A data de início deve ser igual ou posterior à data atual.");
+            setTimeout(() => {
+                setMostrarMensagemData(false)
+            }, 4000)
             return;
         }
 
         if (projeto.dataFinal < projeto.dataInicial) {
-            alert("A data de término deve ser igual ou posterior à data de início.");
+            setMostrarMensagemData("A data de término deve ser igual ou posterior à data de início.");
+            setTimeout(() => {
+                setMostrarMensagemData(false)
+            }, 4000)
             return;
         }
 
@@ -49,7 +65,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
 
             if (response.ok) {
                 const data = await response.text()
-                console.log('Dados enviados com sucesso:', data);
+                console.log('Projeto cadastrado com sucesso', data)
                 setMostrarMensagemCadastro(true);
                 setTimeout(() => {
                     setMostrarMensagemCadastro(false);
@@ -64,7 +80,7 @@ export default function CadastroProjetos({ isOpen, onClose }) {
             console.error('Erro ao enviar os dados:', error);
             alert('Erro ao Cadastrar o projeto');
         }
-        
+
     }
 
     return (
@@ -173,20 +189,30 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                 </select>
                             </div>
                             <div className="flex items-center justify-end">
-                            {!mostrarMensagemCadastro && (
-                                <button
-                                    type="submit"
-                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
-                                >
-                                    Salvar
-                                </button>
+                                {!mostrarMensagemCadastro && (
+                                    <button
+                                        type="submit"
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
+                                    >
+                                        Salvar
+                                    </button>
+                                )}
+                            </div>
+                            {mostrarMensagemCadastro && (
+                                <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold text-base rounded mt-2">
+                                    Projeto Cadastrado com Sucesso
+                                </span>
                             )}
-                        </div>
-                        {mostrarMensagemCadastro && (
-                            <span className="block text-center bg-green-100 border border-green-400 text-black font-bold px-4 py-2 rounded mt-2 text-xl">
-                                Projeto Cadastrado com Sucesso
-                            </span>
-                        )}
+                            {mostrarMensagemData && (
+                                <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold rounded mt-2">
+                                    {mostrarMensagemData}
+                                </span>
+                            )}
+                            {mostrarMensagemVagas && (
+                                <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold text-base rounded mt-2">
+                                    Adicione no mínimo 1 vaga!
+                                </span>
+                            )}
                         </form>
                     </div>
                 </div>

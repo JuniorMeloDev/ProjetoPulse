@@ -112,7 +112,7 @@ export default function Sidebar() {
 							<HiOutlineUser className="w-10 h-10 text-white" />
 						</div>
 					)}
-						<div className='ml-4'>
+						<div className='ml-4 hover:underline'>
 							<Link href="/alunos/configuracoes">{session.user.nome}</Link>
 						</div>
 				</div>
