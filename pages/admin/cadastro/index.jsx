@@ -3,8 +3,6 @@ import styles from '../../../styles/login.module.css'
 
 export default function CadastroUsuario() {
 
-  
-
     const [usuario, setUsuario] = useState({
         nome: "",
         email: "",

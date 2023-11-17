@@ -7,11 +7,12 @@ export default function Home() {
 
   const [usuarios, setUsuarios] = useState([]);
 
-    const token = JSON.parse(localStorage.getItem('token'))// pegando o token do localStorage
-
+    
     useEffect(() => {
         async function fetchUsuarios() {
           try {
+            const token = JSON.parse(localStorage.getItem('token'))// pegando o token do localStorage
+
             const response = await fetch('http://localhost:8080/listar/users', {
                 method: 'GET',
                 headers: {

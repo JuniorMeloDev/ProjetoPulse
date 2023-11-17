@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Head from 'next/head'
 import Layout from '@/components/alunos/LayoutAluno'
 import { useSession } from 'next-auth/react'
 
@@ -16,7 +17,12 @@ export default function Inicio() {
   };
 
   return (
-    <Layout>     
+    <Layout>
+       <Head>
+          <title>Início</title>
+          <meta name='description' content='Tela de início' />
+          <link rel='icon' href='/LogoIco.ico' />
+        </Head>     
       <ProjetosCadastrados />
     </Layout>
   )

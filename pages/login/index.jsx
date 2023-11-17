@@ -1,5 +1,5 @@
 'use client'
-
+import Head from "next/head";
 import { signIn, signOut, useSession, getSession } from "next-auth/react";
 import { useState } from "react";
 import styles from '@/styles/login.module.css'
@@ -55,6 +55,11 @@ export default function Login() {
   return (
    
     <div className={styles.container}>
+       <Head>
+          <title>Login</title>
+          <meta name='description' content='Tela de login' />
+          <link rel='icon' href='/LogoIco.ico' />
+        </Head>
       <div className={styles.background}>
         <NavbarLogin/>
       <div className={styles.page} onSubmit={handleSignIn}>
@@ -83,11 +88,10 @@ export default function Login() {
               Login
             </button>
           </div>
-          <Link href="/recuperarSenha" className="text-center">Esqueceu sua senha</Link>
+          <Link href="/esqueceuSuaSenha" className="text-center">Esqueceu sua senha</Link>
         </form>
         <h1>Status:{status} </h1>
         <button onClick={signOut}>sair</button>
-        {/* <EsqueciSenhaForm/> */}
       </div>
       </div>
     </div>

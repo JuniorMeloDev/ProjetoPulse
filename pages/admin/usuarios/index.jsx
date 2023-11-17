@@ -2,7 +2,7 @@ import ListarUsuarios from '@/components/usuarios/ListarUsuarios'
 import React from 'react'
 import { useSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
-import Layout from '@/components/alunos/LayoutAluno';
+
 
 export default function Usuarios() {
 
@@ -27,7 +27,7 @@ export default function Usuarios() {
                     throw new Error('Erro ao obter a lista de Usuaríos');
                 }
 
-                const data = await response.json();
+                const data = await response.text();
                 setUsuarios(data);
             } catch (error) {
                 console.error(error);
@@ -41,15 +41,15 @@ export default function Usuarios() {
   return (
 
     <div>
-      <Layout>
+      
         <ListarUsuarios/>
-      {/* <h1>Lista de Usuários</h1>
+       <h1>Lista de Usuários</h1>
       
         {usuarios.map((usuario) => (
           <p key={usuario.id}>Nome do Usuario: {usuario.nome}, Email do Usuario: {usuario.email}, Role: {usuario.usuarioRole}</p>
         ))}
-          <li>{session.user.role}</li> */}
-          </Layout>
+          <li>{session.user.role}</li>
+      <p>kkk</p>
     </div>
   )
 }

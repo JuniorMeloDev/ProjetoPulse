@@ -1,8 +1,8 @@
 import React from 'react'
+import Head from 'next/head'
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/professores/LayoutProfessor'
 import NotificacaoCandidaturas from '@/components/professores/NotificacaoCandidatura';
-import BarraDePesquisaNotificacao from '@/components/elementos/BarraDePesquisaNotificacao';
 
 export default function Notificacoes() {
 
@@ -15,6 +15,11 @@ export default function Notificacoes() {
 
   return (
     <Layout>
+      <Head>
+        <title>Notificações</title>
+        <meta name='description' content='Tela de notificações' />
+        <link rel='icon' href='/LogoIco.ico' />
+      </Head>
       <div>
         <NotificacaoCandidaturas />
       </div>

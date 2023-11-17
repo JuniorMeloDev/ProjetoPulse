@@ -186,6 +186,8 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                     <option>Selecione um opção</option>
                                     <option>BackEnd</option>
                                     <option>FrontEnd</option>
+                                    <option>Matemática</option>
+                                    <option>Português</option>
                                 </select>
                             </div>
                             <div className="flex items-center justify-end">

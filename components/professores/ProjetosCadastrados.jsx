@@ -3,6 +3,7 @@ import BarraDePesquisa from '../elementos/BarraDePesquisa';
 import Paginacao from '../elementos/Paginacao';
 import ProjetoCard from './ProjetoCard';
 import CardCandidatos from './CardCandidatos';
+import LegendaStatusCandidatos from '../elementos/LegendaStatusCandidaturas';
 
 
 
@@ -187,7 +188,9 @@ function ProjetosCadastrados() {
                     onClose={() => setMostrarCandidatos(false)}
                 />
             )}
+             <LegendaStatusCandidatos/>
         </div>
+       
     );
 }
 

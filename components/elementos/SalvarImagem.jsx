@@ -95,7 +95,7 @@ export default function SalvarImagem() {
                 )}
             </div>
             {mostrarMensagem && (
-                 <span className="block text-center bg-green-100 border border-green-400 text-black font-bold px-4 py-2 rounded mt-2 text-xl">
+                 <span className="block text-center bg-green-100 border border-green-400 text-green-700 font-bold px-4 py-2 rounded mt-2 text-base">
                     {mensagemErro}
                 </span>
             )}

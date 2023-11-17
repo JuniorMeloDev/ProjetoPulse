@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Head from 'next/head'
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/professores/LayoutProfessor'
 import CadastroProjetos from '@/components/professores/CadastroProjetos'
@@ -29,6 +30,11 @@ export default function ProjetosProf() {
   return (
     <div>
       <Layout>
+        <Head>
+          <title>Meus Projetos</title>
+          <meta name='description' content='Tela de meus projetos' />
+          <link rel='icon' href='/LogoIco.ico' />
+        </Head>
         <ProjetosCadastrados />
         <BotaoNovoProjeto onClick={openModal} />
         <CadastroProjetos isOpen={isModalOpen} onClose={closeModal} />

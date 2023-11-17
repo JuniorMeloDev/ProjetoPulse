@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/professores/LayoutProfessor'
 import React from 'react'
@@ -16,7 +17,12 @@ export default function Ajuda() {
 
     <div>
       <Layout>
-        <TelaAjuda/>
+        <Head>
+          <title>Ajuda</title>
+          <meta name='description' content='Tela de ajuda' />
+          <link rel='icon' href='/LogoIco.ico' />
+        </Head>
+        <TelaAjuda />
       </Layout>
     </div>
   )

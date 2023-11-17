@@ -26,11 +26,11 @@ export default function RecuperarSenhaEmail() {
                 setMostrarMensagem(true)
             } else {
                 console.error('Erro ao enviar e-mail de recuperação:', response.statusText);
-                alert('Erro ao enviar e-mail de recuperação(else). Por favor, tente novamente mais tarde.');
+                alert('Erro ao enviar e-mail de recuperação. Por favor, tente novamente mais tarde.');
             }
         } catch (error) {
             console.error('Erro ao enviar e-mail de recuperação:', error);
-            alert('Erro ao enviar e-mail de recuperação(catch). Por favor, tente novamente mais tarde.');
+            alert('Erro ao enviar e-mail de recuperação. Por favor, tente novamente mais tarde.');
         }
     }
 
@@ -57,7 +57,7 @@ export default function RecuperarSenhaEmail() {
                         </button>
                         {mostrarMensagem && (
                             <span className="block text-center bg-green-100 border border-green-400 text-green-700 font-bold text-base px-4 py-2 rounded mt-2">
-                                Email de recuperação<br />enviado com sucesso
+                                Email de recuperação<br />enviado com sucesso!
                             </span>
                         )}
                     </form>

@@ -23,7 +23,7 @@ export default function ProjetosCandidatados() {
                     throw new Error('Token não encontrado no localStorage');
                 }
 
-                const response = await fetch('http://localhost:8080/orientacao/concorrendo', {
+                const response = await fetch('http://localhost:8080/orientacao/candidatura', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

@@ -59,7 +59,6 @@ function CardDetalhesCandidato({ candidato, onClose }) {
     } catch (error) {
       console.error('Erro a recusar a candidatura:', error);
       alert('Erro ao recusar a candidatura');
-      onClose();
     }
   }
 

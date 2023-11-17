@@ -9,8 +9,6 @@ import { RxExit } from 'react-icons/rx'
 import { VscNotebook } from 'react-icons/vsc'
 import {HiOutlineUser} from 'react-icons/hi'
 
-
-
 export default function Sidebar() {
 
 	const [imagemUsuario, setimagemUsuario] = useState('');

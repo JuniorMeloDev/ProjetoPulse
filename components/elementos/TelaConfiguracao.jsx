@@ -34,17 +34,18 @@ export default function TelaConfiguracao() {
         const { name, value } = e.target;
 
         if (name === 'telefone') {
-            setFormData({
-                ...formData,
+            setFormData((prevData) => ({
+                ...prevData,
                 [name]: formatarTelefone(value)
-            });
+            }));
         } else {
-            setFormData({
-                ...formData,
+            setFormData((prevData) => ({
+                ...prevData,
                 [name]: value
-            });
+            }));
         }
-    }
+    };
+
 
     const handleCepChange = (e) => {
         const cep = e.target.value;
@@ -53,7 +54,7 @@ export default function TelaConfiguracao() {
             fetch(`https://viacep.com.br/ws/${cep}/json/`)
                 .then(response => response.json())
                 .then(data => {
-                    if (!data.erro) {
+                    if (!data.erro && data.cep && data.logradouro && data.uf && data.localidade && data.bairro) {
                         setFormData({
                             ...formData,
                             cep: data.cep,
@@ -72,11 +73,20 @@ export default function TelaConfiguracao() {
         }
     };
 
+
+
     useEffect(() => {
-        if (formData.cep.length === 8) {
+        if (formData && formData.cep && formData.cep.length === 8) {
             handleCepChange({ target: { value: formData.cep } });
         }
+
     }, [formData.cep]);
+
+
+    useEffect(() => {
+        // Carregue as informações iniciais ao montar o componente
+        listarInformacoes();
+    }, []);
 
 
     const handleSubmit = async (e) => {
@@ -96,12 +106,41 @@ export default function TelaConfiguracao() {
                 const data = await response.text();
                 console.log('Dados enviados com sucesso:', data);
                 setmensagem(true);
+                setTimeout(() => {
+                    setmensagem(false);
+                }, 2000)
+
             } else {
                 console.error('Erro ao enviar os dados(else):', response.statusText);
+                console.log(response)
             }
 
         } catch (error) {
             console.error('Erro ao enviar os dados', error);
+        }
+    };
+
+    const listarInformacoes = async (e) => {
+        try {
+            const token = JSON.parse(localStorage.getItem('token'))
+            const response = await fetch('http://localhost:8080/informacoes/listar', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Informações exibidas com sucesso:', data);
+                setFormData(data);
+            } else {
+                console.error('Erro ao exibir os dados:', response.statusText);
+            }
+
+        } catch (error) {
+            console.error('Erro ao exibir os dados', error);
         }
     };
 
@@ -111,8 +150,8 @@ export default function TelaConfiguracao() {
                 <div>
                     <p className='font-bold pb-1'>Foto do Usuário</p>
                     <div className='flex justify-between'>
-                    <SalvarImagem />
-                    <Link href="/trocarSenha" className="flex justify-center items-center bg-blue-900 hover:bg-blue-700 text-white font-bold w-28 h-12 mt-7 rounded">Trocar Senha</Link>
+                        <SalvarImagem />
+                        <Link href="/trocarSenha" className="flex justify-center items-center bg-blue-900 hover:bg-blue-700 text-white font-bold w-28 h-12 mt-7 rounded">Trocar Senha</Link>
                     </div>
                 </div>
             </div>
@@ -242,9 +281,9 @@ export default function TelaConfiguracao() {
                     Salvar
                 </button>
                 {mensagem &&
-                <span className="block text-center bg-green-100 border border-green-400 text-black font-bold px-4 py-2 rounded mt-2 text-xl">
-                    Informações salvas com sucesso
-                </span>}
+                    <span className="block text-center bg-green-100 border border-green-400 text-green-700 font-bold px-4 py-2 rounded mt-2 text-base">
+                        Informações salvas com sucesso
+                    </span>}
             </form>
         </div>
     );

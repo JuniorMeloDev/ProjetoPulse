@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 
 function ProjetoCard({ projeto, onDelete, onCandidatos }) {
     const [modalAberto, setModalAberto] = useState(false);
+    const temCandidatos = projeto.candidaturas === true;
 
     const abrirModal = () => {
         setModalAberto(true);
@@ -24,7 +25,8 @@ function ProjetoCard({ projeto, onDelete, onCandidatos }) {
                  className='max-w-[14rem] mx-auto mt-2 mb-8 cursor-pointer rounded-md shadow-md shadow-gray-200 hover:shadow-blue-400/80 hover:shadow-2xl'
                 onClick={abrirModal}
             >
-                <div className="bg-slate-100 p-4 rounded-lg shadow-lg">
+                <div className={`p-4 rounded-lg shadow-lg
+                ${projeto.candidaturas ? 'bg-yellow-200 hover:bg-yellow-300' : 'bg-blue-300 hover:bg-blue-400'}`}>
                     <h2 className="text-xl font-bold mb-2 line-clamp-1 ">{projeto.titulo}</h2>
                     <p className="text-gray-700 mb-4 line-clamp-2"><strong>Descrição: </strong>{projeto.descricao}</p>
                 </div>
@@ -50,10 +52,11 @@ function ProjetoCard({ projeto, onDelete, onCandidatos }) {
                                 Fechar
                             </button>
                             <button
-    className="bg-orange-600 hover:bg-orange-800 text-white font-bold py-2 px-4 rounded mt-4"
-    onClick={handleCandidatos}>
-    Candidaturas
-</button>
+                        className={`bg-orange-600 hover:bg-orange-800 text-white font-bold py-2 px-4 rounded mt-4 ${temCandidatos ? '' : 'hidden'}`}
+                        onClick={handleCandidatos}
+                    >
+                        Candidaturas
+                    </button>
                             <button onClick={() => onDelete(projeto.id)}
                                 className="bg-red-700 hover:bg-red-900 text-white font-bold py-2 px-4 rounded mt-4"
                             >

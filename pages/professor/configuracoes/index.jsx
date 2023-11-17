@@ -1,4 +1,5 @@
 import React from 'react'
+import Head from 'next/head';
 import { useSession } from 'next-auth/react';
 import Layout from '@/components/professores/LayoutProfessor'
 import TelaConfiguracao from '@/components/elementos/TelaConfiguracao';
@@ -14,8 +15,13 @@ export default function Configuracoes() {
 
   return (
     <Layout>
+      <Head>
+        <title>Configurações</title>
+        <meta name='description' content='Tela de configurações' />
+        <link rel='icon' href='/LogoIco.ico' />
+      </Head>
       <div>
-        <TelaConfiguracao/>
+        <TelaConfiguracao />
       </div>
     </Layout>
   )

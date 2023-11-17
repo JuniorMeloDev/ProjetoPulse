@@ -1,39 +1,8 @@
 import { useSession } from 'next-auth/react'
-import React, { useState } from 'react'
+import React from 'react'
+
 
 export default function TelaAjuda() {
-    
-const {data: session} = useSession()
-const [mensagem, setMensagem] = useState('')
-const [email, setEmail] = useState()
-const [mostrarMensagem, setMostrarMensagem] = useState(false)
-
-const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        const token = JSON.parse(localStorage.getItem('token'));
-        const response = await fetch('http://localhost:8080/mensagem/suporte', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify({ mensagem, email }),
-        });
-
-        if (response.ok) {
-            const data = await response.text();
-            console.log('Mensagem enviada com sucesso', data);
-            setMostrarMensagem(true)
-        } else {
-            console.error('Erro ao enviar mensagem:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Erro ao enviar a mensagem:', error);
-
-    }
-}
-
     return (
         <div>
             <div className="container my-4 mx-auto md:px-6">
@@ -46,28 +15,34 @@ const handleSubmit = async (e) => {
 
                     <div className="flex flex-wrap">
                         <div className="mb-12 w-full shrink-0 grow-0 basis-auto md:px-3 lg:mb-0 lg:w-5/12 lg:px-6">
-                            <form onSubmit={handleSubmit}>
-                                
+                            <form>
+                                <div className="relative mb-6 rounded-md bg-slate-100" data-te-input-wrapper-init>
+                                    <input type="text"
+                                        className="peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                                        id="exampleInput90" placeholder="Nome" />
+                                    <label
+                                        className="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
+                                        for="exampleInput90">Nome
+                                    </label>
+                                </div>
                                 <div className="relative mb-6 rounded-md bg-slate-100" data-te-input-wrapper-init>
                                     <input type="email"
-                                    value={session.user.email}
-                                    onChange={e => setEmail(e.target.value)}
+                                    onChange={e => setMensagem(e.target.value)}
                                         className="peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 dark:peer-focus:text-primary [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                                         id="exampleInput91" placeholder="Email" />
                                     <label
                                         className="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary"
-                                        for="exampleInput91">
+                                        for="exampleInput91">Email
                                     </label>
                                 </div>
                                 <div className="relative mb-6 rounded-md bg-slate-100" data-te-input-wrapper-init>
                                     <textarea
-                                     onChange={e => setMensagem(e.target.value)}
                                         className="peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                                         id="exampleFormControlTextarea1" rows="3" placeholder="Your message"></textarea>
                                     <label for="exampleFormControlTextarea1"
                                         className="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Escreva sua mensagem</label>
                                 </div>
-                                <button type="submit" data-te-ripple-init data-te-ripple-color="light"
+                                <button type="button" data-te-ripple-init data-te-ripple-color="light"
                                     className="bg-slate-300 mb-6 inline-block w-full rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
                                     Enviar
                                 </button>
@@ -171,11 +146,6 @@ const handleSubmit = async (e) => {
                         </div>
                     </div>
                 </section>
-                {mostrarMensagem && (
-                 <span className="block text-center bg-green-100 border border-green-400 text-green-700 font-bold px-4 py-2 rounded mt-2 text-base">
-                    Mensagem Enviada com Sucesso!
-                </span>
-            )}
             </div>
         </div>
     )
