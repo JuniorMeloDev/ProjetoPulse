@@ -1,7 +1,7 @@
 'use client'
 import Head from "next/head";
 import { signIn, signOut, useSession, getSession } from "next-auth/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from '@/styles/login.module.css'
 import { FiLock } from "react-icons/fi"
 import { AiOutlineMail } from "react-icons/ai"
@@ -16,6 +16,7 @@ export default function Login() {
   const [senha, setSenha] = useState("");
   const [error, setError] = useState()
 
+
   const handleSignIn = async (e) => {
     e.preventDefault();
 
@@ -27,22 +28,29 @@ export default function Login() {
       });
 
       if (!result?.error) {
-        const session = await getSession(); // Obtemos a sessão atualizada após o login
+        const session = await getSession();
 
         if (session && session.user) {
-          const role = session.user.role;
+    
+          const primeiraSenha = session.user.status
+            
+          if (primeiraSenha == false) {
+            router.push('/trocarSenhaInicial')
+          }
+          else {
+            if (session && session.user) {
+              const role = session.user.role;
 
-          if (role === 'ROLE_PROFESSOR') {
-            router.push('/professor/meusprojetos');
-            return;
-          } else if (role === 'ROLE_ALUNO') {
-            router.push('/alunos/inicio');
-            return;
+              if (role === 'ROLE_PROFESSOR') {
+                  router.push('/professor/meusprojetos');
+              } else if (role === 'ROLE_ALUNO') {
+                  router.push('/alunos/inicio');
+              } else if (role === 'ROLE_ADMIN') {
+                  router.push('/admin/usuarios');
+              }
+            }
           }
-          else if (role === 'ROLE_ADMIN') {
-            router.push('/admin/usuarios');
-            return;
-          }
+        
         }
       }
 
@@ -53,46 +61,46 @@ export default function Login() {
   }
 
   return (
-   
+
     <div className={styles.container}>
-       <Head>
-          <title>Login</title>
-          <meta name='description' content='Tela de login' />
-          <link rel='icon' href='/LogoIco.ico' />
-        </Head>
+      <Head>
+        <title>Login</title>
+        <meta name='description' content='Tela de login' />
+        <link rel='icon' href='/LogoIco.ico' />
+      </Head>
       <div className={styles.background}>
-        <NavbarLogin/>
-      <div className={styles.page} onSubmit={handleSignIn}>
-        <form className={styles.formLogin}>
-          <div className="flex mr-3">
-            <AiOutlineMail className={styles.icons} />
-            <input
-              type="email"
-              placeholder="Digite seu Email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="flex mr-3">
-            <FiLock className={styles.icons} />
-            <input
-              type="password"
-              placeholder="Digite sua Senha"
-              value={senha}
-              onChange={e => setSenha(e.target.value)}
-            />
-          </div>
-          {error && <span className="text-red-400 text-lg text-center block mt-2">{error}</span>}
-          <div className="flex items-center justify-center">
-            <button type="submit" className={styles.btn}>
-              Login
-            </button>
-          </div>
-          <Link href="/esqueceuSuaSenha" className="text-center">Esqueceu sua senha</Link>
-        </form>
-        <h1>Status:{status} </h1>
-        <button onClick={signOut}>sair</button>
-      </div>
+        <NavbarLogin />
+        <div className={styles.page} onSubmit={handleSignIn}>
+          <form className={styles.formLogin}>
+            <div className="flex mr-3">
+              <AiOutlineMail className={styles.icons} />
+              <input
+                type="email"
+                placeholder="Digite seu Email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="flex mr-3">
+              <FiLock className={styles.icons} />
+              <input
+                type="password"
+                placeholder="Digite sua Senha"
+                value={senha}
+                onChange={e => setSenha(e.target.value)}
+              />
+            </div>
+            {error && <span className="text-red-400 text-lg text-center block mt-2">{error}</span>}
+            <div className="flex items-center justify-center">
+              <button type="submit" className={styles.btn}>
+                Login
+              </button>
+            </div>
+            <Link href="/esqueceuSuaSenha" className="text-center">Esqueceu sua senha</Link>
+          </form>
+          <h1>Status:{status} </h1>
+          <button onClick={signOut}>sair</button>
+        </div>
       </div>
     </div>
 

@@ -41,8 +41,8 @@ export default function CadastroUsuario() {
     };
 
     return (
-        <div className={styles.page} onSubmit={handleSubmit}>
-          <form className={styles.formLogin}>
+        <div className={styles.page} >
+          <form className={styles.formLogin} onSubmit={handleSubmit}>
             <img className={styles.logo} src="../imagens/logo.png" alt="logo" />
             <div className="flex mr-3">
               <input
