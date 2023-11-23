@@ -4,7 +4,7 @@ import { PiTrashSimple } from 'react-icons/pi'
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa'
 import BarraDePesquisaNotificacao from '@/components/elementos/BarraDePesquisaNotificacao';
 
-export default function NotificacaoCandidaturas({ projeto }) {
+export default function NotificacaoCandidaturas() {
   const [mensagens, setMensagens] = useState([]);
   const [mensagensFiltradas, setMensagensFiltradas] = useState([]);
   const [paginaAtual, setpaginaAtual] = useState(1);
@@ -144,7 +144,7 @@ export default function NotificacaoCandidaturas({ projeto }) {
     <div>
       <BarraDePesquisaNotificacao onSearch={handleSearch} />
       {mostrarMensagemDeletada &&
-        <span className="block text-center bg-green-100 border border-green-400 text-green-700 font-bold text-base rounded mt-2">Mensagem deletada com sucesso!</span>}
+        <span className="block text-center bg-red-100 border border-green-400 text-green-700 font-bold text-base rounded mt-2">Mensagem deletada com sucesso!</span>}
       <div className="overflow-x-auto mt-4">
         <table className="min-w-full border-collapse border border-gray-300">
           <thead>

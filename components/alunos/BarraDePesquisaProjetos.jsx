@@ -42,6 +42,8 @@ export default function BarraDePesquisa({ onSearch }) {
             <option>Selecione</option>
             <option>FrontEnd</option>
             <option>BackEnd</option>
+            <option>Matemática</option>
+            <option>Português</option>
           </select>
           <button
             className="bg-indigo-500 text-white text-base rounded-lg px-4 py-2 font-thin mt-2 sm:mt-0 sm:ml-4 mr-2"

@@ -13,8 +13,6 @@ export default function ProjetosCandidatados() {
     const projetosPaginas = 8; // quantos serão visualizados por página
     const [statusFiltro, setStatusFiltro] = useState('Selecione');
 
-
-
     useEffect(() => {
         async function listarProjetosCandidatados() {
             try {
@@ -46,7 +44,6 @@ export default function ProjetosCandidatados() {
         listarProjetosCandidatados();
     }, []);
 
-
     // funcão para pesquisar projetos pelo titulo, descrição, requisitos ou status
     const handleSearch = ({ buscaProjeto, tipoProjeto, statusFiltro }) => {
         const projetosFiltrados = projetos.filter(projeto => {
@@ -62,7 +59,6 @@ export default function ProjetosCandidatados() {
         setProjetosFiltrados(projetosFiltrados);
         setpaginaCorrente(1); // Resetando para a primeira página ao realizar uma nova busca
     };
-    
 
     // constantes para uso de paginação. junto com o componente 'Paginação.JSX'
     const indexOfLastProject = paginaCorrente * projetosPaginas;
@@ -70,7 +66,6 @@ export default function ProjetosCandidatados() {
     const currentProjects = projetosFiltrados.slice(indexOfFirstProject, indexOfLastProject);
 
     const paginate = (pageNumber) => setpaginaCorrente(pageNumber);
-
 
     return (
         <div>

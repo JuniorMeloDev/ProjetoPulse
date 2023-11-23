@@ -108,12 +108,12 @@ export default function FormularioCandidatura({ projeto, onClose, onSubmit }) {
                     )}
 
                     {jaSolicitou && (
-                        <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold text-base px-4 py-2 rounded mt-2">
+                        <span className="block text-center bg-red-100 border border-red-400 text-red-700 font-bold text-base px-4 py-2 rounded mt-2">
                             Você já solicitou a candidatura para esse projeto!
                         </span>
                     )}
                      {vagasDisponiveis && (
-                        <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold text-base px-4 py-2 rounded mt-2">
+                        <span className="block text-center bg-red-100 border border-red-400 text-red-700 font-bold text-base px-4 py-2 rounded mt-2">
                             Vagas esgotadas!
                         </span>
                     )}

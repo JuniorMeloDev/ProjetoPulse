@@ -8,7 +8,6 @@ export default function RecuperarSenhaEmail() {
     const [email, setEmail] = useState()
     const [mostrarMensagem, setMostrarMensagem] = useState(false)
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -33,7 +32,6 @@ export default function RecuperarSenhaEmail() {
             alert('Erro ao enviar e-mail de recuperação. Por favor, tente novamente mais tarde.');
         }
     }
-
 
     return (
         <div className={Styles.container}>

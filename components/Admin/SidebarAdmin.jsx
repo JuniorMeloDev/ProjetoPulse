@@ -2,7 +2,6 @@ import Link from 'next/link'
 import React, { useState, useEffect } from 'react'
 import { signOut, useSession } from 'next-auth/react'
 import { AiOutlineSetting } from 'react-icons/ai'
-import { BiHelpCircle } from 'react-icons/bi'
 import { IoIosNotificationsOutline } from 'react-icons/io'
 import { RxExit } from 'react-icons/rx'
 import { VscNotebook } from 'react-icons/vsc'
@@ -14,7 +13,6 @@ export default function Sidebar() {
 	const [imagemUsuario, setimagemUsuario] = useState('');
 	const { data: session } = useSession()
 	const router = useRouter();
-
 
 	// função para mostrar a foto do usuario
 	useEffect(() => {
@@ -55,7 +53,7 @@ export default function Sidebar() {
 			 <div className="h-full p-3 space-y-2 w-full md:w-60 dark:bg-gray-900 dark:text-gray-100">
     <div className="flex flex-col items-center md:items-start">
 					<div className='h-20 flex items-center px-8'>
-						<Link href='/professor/meusprojetos' className='flex-none'>
+						<Link href='/admin/usuarios' className='flex-none'>
 							<img src="../../imagens/LogoSemNome.png" width={110} className="mt-9 rounded-full" />
 						</Link>
 					</div>
@@ -64,29 +62,23 @@ export default function Sidebar() {
 				<div className="pt-7 pb-8 divide-y divide-gray-700">
 					<ul className="pt-2 pb-4 space-y-1 text-sm">
 						<li>
-							<Link href="/professor/meusprojetos" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/professor/meusprojetos' ? 'bg-slate-400' : ''}`}>
+							<Link href="/admin/inicio" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/admin/inicio' ? 'bg-slate-400' : ''}`}>
 								<VscNotebook className='w-5 h-5' />
-								<span>Meus projetos</span>
+								<span>Início</span>
 							</Link>
 						</li>
 						<li>
-							<Link href="/professor/notificacoes" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/professor/notificacoes' ? 'bg-slate-400' : ''}`}>
+							<Link href="/admin/notificacoes" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/admin/notificacoes' ? 'bg-slate-400' : ''}`}>
 								<IoIosNotificationsOutline className='w-5 h-5' />
 								<span>Notificações</span>
 							</Link>
 						</li>
 					</ul>
 					<ul className="pt-4 pb-2 space-y-1 text-sm">
-						<li>
-							<Link href="/professor/configuracoes" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/professor/configuracoes' ? 'bg-slate-400' : ''}`}>
+						 <li>
+							<Link href="/admin/configuracoes" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/admin/configuracoes' ? 'bg-slate-400' : ''}`}>
 								<AiOutlineSetting className='w-5 h-5' />
 								<span>Configurações</span>
-							</Link>
-						</li>
-						<li>
-							<Link href="/professor/ajuda" className={`flex items-center p-2 space-x-3 rounded-md transition-all duration-300 hover:bg-slate-400 ${router.asPath === '/professor/ajuda' ? 'bg-slate-400' : ''}`}>
-								<BiHelpCircle className='w-5 h-5' />
-								<span>Ajuda</span>
 							</Link>
 						</li>
 						<li>
@@ -108,7 +100,7 @@ export default function Sidebar() {
 						</div>
 					)}
 					<div className='ml-4 hover:underline'>
-						<Link href="/professor/configuracoes">{session.user.nome}</Link>
+						<p>{session.user.nome}</p>
 					</div>
 				</div>
 			</div>

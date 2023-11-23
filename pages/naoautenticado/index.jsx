@@ -1,12 +1,10 @@
-import Link from 'next/link'
 import React from 'react'
+import PaginaNaoAutenticado from '@/components/elementos/PaginaNaoAutenticado'
 
-export default function NaoAutenticado() {
+export default function index() {
   return (
     <div>
-      <h1>Desculpe, Você não está autenticado!!
-      </h1>
-      <Link className='bg-slate-500 rounded-s-full' href='/'>Voltar para o login</Link>
+      <PaginaNaoAutenticado/>
     </div>
   )
 }

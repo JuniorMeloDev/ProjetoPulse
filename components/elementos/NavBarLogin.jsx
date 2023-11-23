@@ -9,15 +9,12 @@ const NavbarLogin = () => {
   };
 
   return (
-    <nav className="border-gray-200 bg-white bg-opacity-90 dark:bg-gray-800 dark:border-gray-700">
+    <nav className=" bg-white bg-opacity-90 dark:bg-gray-800 dark:border-gray-700">
       <div className="max-w-screen-xl mx-auto p-4">
         <div className="flex items-center justify-between">
-          <Link legacyBehavior href="/">
-            <a className="flex items-center">
-              <img src="./imagens/LogoSemNome.png" className="h-14 mr-4 rounded-full" alt="Logo" />
-            </a>
+          <Link href="/" className="flex items-center">
+            <img src="./imagens/LogoSemNome.png" className="h-14 mr-4 rounded-full" alt="Logo" />
           </Link>
-          
           <div className="md:hidden ml-auto">
             <button onClick={toggleMenu} className="text-gray-900 dark:text-white focus:outline-none">
               <svg
@@ -36,15 +33,11 @@ const NavbarLogin = () => {
               </svg>
             </button>
           </div>
-
           <div className={`md:flex md:w-auto ${menuOpen ? 'block' : 'hidden'}`}>
             <ul className="flex flex-col font-medium mt-4 md:flex-row md:space-x-8 md:mt-0">
               <li>
-                <Link legacyBehavior href="/">
-                  <a className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-300">Voltar ao Site</a>
-                </Link>
+                <Link href="/" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-300">Voltar ao Site</Link>
               </li>
-              {/* Adicione mais itens de menu aqui */}
             </ul>
           </div>
         </div>

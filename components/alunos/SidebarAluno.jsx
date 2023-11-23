@@ -43,7 +43,7 @@ export default function Sidebar() {
 	}, []);
 
 	const handleSignOut = async () => {
-		await signOut(); // Faz o logout
+		await signOut({ callbackUrl: 'http://localhost:3001'}); // Faz o logout
 		localStorage.removeItem('token'); // Remove o token do Local Storage
 	};
 

@@ -46,7 +46,7 @@ export default function Login() {
               } else if (role === 'ROLE_ALUNO') {
                   router.push('/alunos/inicio');
               } else if (role === 'ROLE_ADMIN') {
-                  router.push('/admin/usuarios');
+                  router.push('/admin/inicio');
               }
             }
           }
@@ -98,8 +98,6 @@ export default function Login() {
             </div>
             <Link href="/esqueceuSuaSenha" className="text-center">Esqueceu sua senha</Link>
           </form>
-          <h1>Status:{status} </h1>
-          <button onClick={signOut}>sair</button>
         </div>
       </div>
     </div>

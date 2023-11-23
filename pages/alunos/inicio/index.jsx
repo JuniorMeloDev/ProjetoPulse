@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react'
 import Head from 'next/head'
 import Layout from '@/components/alunos/LayoutAluno'
 import { useSession } from 'next-auth/react'

@@ -201,17 +201,17 @@ export default function CadastroProjetos({ isOpen, onClose }) {
                                 )}
                             </div>
                             {mostrarMensagemCadastro && (
-                                <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold text-base rounded mt-2">
+                                <span className="block text-center bg-green-100 border border-green-400 text-green-700 font-bold text-base rounded mt-2">
                                     Projeto Cadastrado com Sucesso
                                 </span>
                             )}
                             {mostrarMensagemData && (
-                                <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold rounded mt-2">
+                                <span className="block text-center bg-red-100 border border-red-400 text-red-700 font-bold rounded mt-2">
                                     {mostrarMensagemData}
                                 </span>
                             )}
                             {mostrarMensagemVagas && (
-                                <span className="block text-center bg-red-100 border border-red-400 text-green-700 font-bold text-base rounded mt-2">
+                                <span className="block text-center bg-red-100 border border-red-400 text-red-700 font-bold text-base rounded mt-2">
                                     Adicione no mínimo 1 vaga!
                                 </span>
                             )}

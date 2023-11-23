@@ -13,10 +13,10 @@ export default function notFound() {
     <p class="mt-4 text-gray-500">We can't find that page.</p>
 
     <a
-      href="http://localhost:3000/"
+      href="http://localhost:3001/"
       class="inline-block px-5 py-3 mt-6 text-sm font-medium text-white bg-indigo-600 rounded hover:bg-indigo-700 focus:outline-none focus:ring"
     >
-      Go Back Home
+      Voltar para o início
     </a>
   </div>
 </div>

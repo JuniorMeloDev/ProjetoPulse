@@ -36,7 +36,7 @@ function ProjetoCard({ projeto, onCandidatar  }) {
                     <div className="modal-content bg-white p-6 rounded-lg shadow-lg z-10">
                         <h2 className="text-2xl text-center font-bold mb-6">{projeto.titulo}</h2>
                         <p className="max-w-[28rem] text-justify mb-2"><strong>Descrição do Projeto:</strong> {projeto.descricao}</p>
-                        <p className="max-w-[28rem] text-justify mb-2"><strong>Requisitos do projeto:</strong> {projeto.requesito}</p>
+                        <p className="max-w-[28rem] text-justify mb-2"><strong>Requisitos do projeto:</strong> {projeto.requisito}</p>
                         <p className='mb-2'><strong>Vagas:</strong> {projeto.vagas}</p>
                         <p className=" text-justify line-clamp-3 mb-2"><strong className='text-zinc-950'>Data Inicial:</strong> {format(new Date(projeto.dataInicial), 'dd/MM/yyyy')}</p>
                         <p className=" text-justify line-clamp-3 mb-2"><strong className='text-zinc-950'>Data Final:</strong> {format(new Date(projeto.dataFinal), 'dd/MM/yyyy')}</p>

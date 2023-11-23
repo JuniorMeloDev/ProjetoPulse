@@ -54,7 +54,8 @@
     flex-direction: column;
     background-color: #fff;
     border-radius: 7px;
-    padding: 40px;
+    padding: 35px;
+    margin-top: 45px;
     box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.4);
     gap: 5px;
     opacity: 0.9;
@@ -75,6 +76,17 @@
 }
 
 .formLogin input {
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+    border-radius: 4px;
+    transition: all linear 160ms;
+    outline: none;
+    width:100%;
+}
+
+.formLogin select {
     padding: 15px;
     font-size: 14px;
     border: 1px solid #ccc;
