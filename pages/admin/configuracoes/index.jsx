@@ -1,7 +1,7 @@
 import React from 'react'
 import Head from 'next/head';
 import { useSession } from 'next-auth/react';
-import Layout from '@/components/Admin/LayoutAdmin'
+import Layout from '@/components/admin/LayoutAdmin'
 import TelaConfiguracao from '@/components/elementos/TelaConfiguracao';
 
 export default function Configuracoes() {

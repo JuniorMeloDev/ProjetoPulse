@@ -21,7 +21,7 @@ export default function NotificacaoCandidaturas() {
           throw new Error('Token não encontrado no localStorage');
         }
 
-        const response = await fetch('http://localhost:8080/mensagem/listar', {
+        const response = await fetch('http://localhost:8080/suporte/listar', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -48,12 +48,13 @@ export default function NotificacaoCandidaturas() {
     const mensagensFiltradas = mensagens.filter(mensagem => {
       if (tipoPesquisa === 'mensagem') {
         return (
-          (mensagem.remetente && mensagem.remetente.toLowerCase().includes(buscaMensagem.toLowerCase())) ||
+          (mensagem.nome && mensagem.nome.toLowerCase().includes(buscaMensagem.toLowerCase())) ||
+          (mensagem.email && mensagem.email.toLowerCase().includes(buscaMensagem.toLowerCase())) ||
           (mensagem.mensagem && mensagem.mensagem.toLowerCase().includes(buscaMensagem.toLowerCase())) ||
           (mensagem.horarioEnvio && mensagem.horarioEnvio.toLowerCase().includes(buscaMensagem.toLowerCase()))
         );
       } else if (tipoPesquisa === 'remetente') {
-        return mensagem.remetente.toLowerCase().includes(buscaMensagem.toLowerCase());
+        return mensagem.email.toLowerCase().includes(buscaMensagem.toLowerCase());
       } else if (tipoPesquisa === 'data') {
         const dataEnvio = new Date(mensagem.horarioEnvio);
         const dataInicialDate = new Date(dataInicial);
@@ -82,7 +83,7 @@ export default function NotificacaoCandidaturas() {
         throw new Error('Token não encontrado no localStorage');
       }
 
-      const response = await fetch(`http://localhost:8080/mensagem/deletar/${mensagemId}`, {
+      const response = await fetch(`http://localhost:8080/suporte/deletar/${mensagemId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -113,9 +114,11 @@ export default function NotificacaoCandidaturas() {
   }
 
   const nextPage = () => {
-    if (paginaInicial < Math.ceil(mensagensFiltradas.length / mensagensPorPaginas)) {
-      setpaginaAtual(paginaInicial + 1);
-      setpaginaInicial(paginaInicial + 1);
+    const totalPages = Math.ceil(mensagensFiltradas.length / mensagensPorPaginas);
+
+    if (paginaAtual < totalPages) {
+      setpaginaAtual(paginaAtual + 1);
+      setpaginaInicial(paginaAtual + 1);
     }
   }
 
@@ -130,16 +133,12 @@ export default function NotificacaoCandidaturas() {
   const indexOfFirstMessage = indexOfLastMessage - mensagensPorPaginas;
   const currentMessages = mensagensFiltradas.slice(indexOfFirstMessage, indexOfLastMessage);
 
+  const totalPages = Math.ceil(mensagensFiltradas.length / mensagensPorPaginas);
+
   const paginaInicials = [];
-  for (let i = paginaInicial; i <= Math.min(paginaInicial + VisibildadePaginas - 1, Math.ceil(mensagensFiltradas.length / mensagensPorPaginas)); i++) {
+  for (let i = paginaInicial; i <= Math.min(paginaInicial + VisibildadePaginas - 1, totalPages); i++) {
     paginaInicials.push(i);
   }
-
-  const highlightWord = (text, wordToHighlight) => {
-    const regex = new RegExp(`\\b${wordToHighlight}\\b`, 'gi');
-    return text.replace(regex, (match) => `<strong>${match}</strong>`);
-  }; //constante para deixar negrito a mensagem pré-definida do back end
-
   return (
     <div>
       <BarraDePesquisaNotificacao onSearch={handleSearch} />
@@ -149,6 +148,7 @@ export default function NotificacaoCandidaturas() {
         <table className="min-w-full border-collapse border border-gray-300">
           <thead>
             <tr className='bg-gray-400'>
+              <th className="py-2 px-4 border border-gray-300">Nome</th>
               <th className="py-2 px-4 border border-gray-300">Remetente</th>
               <th className="py-2 px-4 border border-gray-300">Mensagem</th>
               <th className="py-2 px-4 border border-gray-300">Data</th>
@@ -158,11 +158,12 @@ export default function NotificacaoCandidaturas() {
           <tbody>
             {currentMessages.map(mensagem => (
               <tr key={mensagem.id} className="hover:bg-gray-100 cursor-pointer text-center">
-                <td className="py-2 px-4 border border-gray-300">{mensagem.remetente}</td>
+                <td className="py-2 px-4 border border-gray-300">{mensagem.nome}</td>
+                <td className="py-2 px-4 border border-gray-300">{mensagem.email}</td>
                 <td className="py-2 px-4 border border-gray-300 text-justify">
-                  <div dangerouslySetInnerHTML={{ __html: highlightWord(mensagem.mensagem, 'suaPalavra') }} /> {/*validação do negrito no backEnd */}
+                {mensagem.mensagem}
                 </td>
-                <td className="py-2 px-4 border border-gray-300">{format(new Date(mensagem.horarioEnvio), 'dd/MM/yyyy HH:mm a')}</td>
+                <td className="py-2 px-4 border border-gray-300">{format(new Date(mensagem.dataHora), 'dd/MM/yyyy HH:mm a')}</td>
                 <td className="py-2 px-4 border border-gray-300">
                   <button
                     className="bg-slate-400 text-white py-1 px-2 rounded"
@@ -176,7 +177,7 @@ export default function NotificacaoCandidaturas() {
           </tbody>
         </table>
       </div>
-      <div className="flex gap-4 justify-center items-center mt-2">
+      <div className="flex gap-4 justify-center items-center mt-4">
         <button
           onClick={prevPage}
           className="bg-blue-600 text-white p-2 rounded-lg"

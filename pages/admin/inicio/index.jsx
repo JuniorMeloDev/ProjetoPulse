@@ -2,11 +2,11 @@ import Head from 'next/head'
 import React from 'react'
 import { useSession } from 'next-auth/react'
 import { useState } from 'react'
-import Layout from '@/components/Admin/LayoutAdmin'
+import Layout from '@/components/admin/LayoutAdmin'
 import BotaoNovoUsuario from '@/components/elementos/BotaoNovoUsuario'
-import CadastroUsuarios from '@/components/Admin/CadastroUsuarios'
-import ListarUsuarios from '@/components/Admin/ListarUsuarios'
-import BarraDePesquisaUsuario from '@/components/Admin/BarraDePesquisaUsuarios'
+import CadastroUsuarios from '@/components/admin/CadastroUsuarios'
+import ListarUsuarios from '@/components/admin/ListarUsuarios'
+import BarraDePesquisaUsuario from '@/components/admin/BarraDePesquisaUsuarios'
 
 export default function Inicio() {
 

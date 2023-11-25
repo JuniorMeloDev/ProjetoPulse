@@ -9,7 +9,7 @@ export default function index() {
     <div>
       <Head>
         <title>Projeto Pulse</title>
-        <meta name='description' content='Aplicação de gerenciamento de projetos acadêmicos' />
+        <meta name='description' content='Aplicação web de gerenciamento de projetos acadêmicos' />
         <link rel='icon' href='/LogoIco.ico' />
       </Head>
       <Navbar />

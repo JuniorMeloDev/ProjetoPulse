@@ -1,8 +1,8 @@
 import React from 'react'
 import Head from 'next/head';
-import Layout from '@/components/Admin/LayoutAdmin'
+import Layout from '@/components/admin/LayoutAdmin'
 import { useSession } from 'next-auth/react';
-import NotificacaoUsuario from '@/components/Admin/NotificacaoUsuario';
+import NotificacaoUsuario from '@/components/admin/NotificacaoUsuario';
 
 export default function Notificacoes() {
 

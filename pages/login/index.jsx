@@ -1,7 +1,6 @@
-'use client'
 import Head from "next/head";
-import { signIn, signOut, useSession, getSession } from "next-auth/react";
-import { useState, useEffect } from "react";
+import { signIn, getSession } from "next-auth/react";
+import { useState } from "react";
 import styles from '@/styles/login.module.css'
 import { FiLock } from "react-icons/fi"
 import { AiOutlineMail } from "react-icons/ai"
@@ -10,11 +9,10 @@ import NavbarLogin from "@/components/elementos/NavBarLogin";
 import Link from "next/link";
 
 export default function Login() {
-  const { data: session, status } = useSession();
   const router = useRouter()
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-  const [error, setError] = useState()
+  const [error, setError] = useState(false)
 
 
   const handleSignIn = async (e) => {
@@ -31,9 +29,9 @@ export default function Login() {
         const session = await getSession();
 
         if (session && session.user) {
-    
+
           const primeiraSenha = session.user.status
-            
+
           if (primeiraSenha == false) {
             router.push('/trocarSenhaInicial')
           }
@@ -42,19 +40,22 @@ export default function Login() {
               const role = session.user.role;
 
               if (role === 'ROLE_PROFESSOR') {
-                  router.push('/professor/meusprojetos');
+                router.push('/professor/meusprojetos');
               } else if (role === 'ROLE_ALUNO') {
-                  router.push('/alunos/inicio');
+                router.push('/alunos/inicio');
               } else if (role === 'ROLE_ADMIN') {
-                  router.push('/admin/inicio');
+                router.push('/admin/inicio');
               }
             }
           }
-        
+
         }
       }
 
       setError('Email ou senha inválidos');
+      setTimeout(() => {
+        setError(false)
+      }, 2000);
     } catch (error) {
       console.log('[Erro no login: ', error);
     }

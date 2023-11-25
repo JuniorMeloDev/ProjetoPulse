@@ -9,39 +9,60 @@ export default function TelaContato() {
     const [mensagem, setMensagem] = useState('')
     const [mostrarMensagem, setMostrarMensagem] = useState(false)
 
+    const MAX_CARACTERES = 256;
+
+    const handleMensagemChange = (e) => {
+        const inputMensagem = e.target.value;
+        if (inputMensagem.length <= MAX_CARACTERES) {
+            setMensagem(inputMensagem);
+        } else {
+            // Truncar a mensagem se exceder o limite de caracteres
+            setMensagem(inputMensagem.slice(0, MAX_CARACTERES));
+        }
+    };
+
+    const ContadorCaracteres = ({ limite, atual }) => {
+        return (
+            <div className="text-neutral-500 dark:text-neutral-200 text-right">
+                {`${atual}/${limite} caracteres`}
+            </div>
+        );
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const token = JSON.parse(localStorage.getItem('token'));
-            const response = await fetch('http://localhost:8080/mensagem/suporte', {
+            const response = await fetch('http://localhost:8080/suporte/home/enviar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ nome, mensagem, email }),
+                body: JSON.stringify({ nome, email, mensagem }),
             });
 
             if (response.ok) {
                 const data = await response.text();
                 console.log('Mensagem enviada com sucesso', data);
-                setMostrarMensagem(true)
+                setMostrarMensagem('Mensagem enviada com sucesso')
+                setTimeout(() => {
+                    setMostrarMensagem(false)
+                }, 3000);
             } else {
                 console.error('Erro ao enviar mensagem:', response.statusText);
+                setMostrarMensagem('Erro ao enviar a mensagem')
             }
         } catch (error) {
             console.error('Erro ao enviar a mensagem:', error);
-
         }
     }
 
     return (
         <div>
             <div className="container my-4 mx-auto md:px-6">
-                <section className="mb-32">
+                <section>
                     <div className="flex justify-center">
                         <div className="text-center md:max-w-xl lg:max-w-3xl">
-                            <h2 className="mb-20 px-6 text-3xl font-bold">Precisa de ajuda? Entre em contato!</h2>
+                            <h2 className="mb-10 px-6 text-3xl font-bold">Precisa de ajuda? Entre em contato!</h2>
                         </div>
                     </div>
 
@@ -50,6 +71,7 @@ export default function TelaContato() {
                             <form onSubmit={handleSubmit}>
                                 <div className="relative mb-6 rounded-md bg-slate-100" data-te-input-wrapper-init>
                                     <input
+                                        required
                                         type="text"
                                         value={nome}
                                         onChange={e => setNome(e.target.value)}
@@ -62,6 +84,7 @@ export default function TelaContato() {
                                 </div>
                                 <div className="relative mb-6 rounded-md bg-slate-100" data-te-input-wrapper-init>
                                     <input
+                                        required
                                         type="email"
                                         value={email}
                                         onChange={e => setEmail(e.target.value)}
@@ -72,21 +95,30 @@ export default function TelaContato() {
                                         for="exampleInput91">Email
                                     </label>
                                 </div>
-                                <div className="relative mb-6 rounded-md bg-slate-100" data-te-input-wrapper-init>
+                                <div className="relative rounded-md bg-slate-100" data-te-input-wrapper-init>
                                     <textarea
+                                        required
                                         type="text"
                                         value={mensagem}
-                                        onChange={e => setMensagem(e.target.value)}
+                                        onChange={handleMensagemChange}
                                         className="peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[1.3rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                                         id="exampleFormControlTextarea1" rows="3" placeholder="Your message"></textarea>
                                     <label for="exampleFormControlTextarea1"
                                         className="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-primary">Escreva sua mensagem</label>
                                 </div>
-                                <button type="button" data-te-ripple-init data-te-ripple-color="light"
+                                <div className='mb-4'>
+                                    <ContadorCaracteres limite={MAX_CARACTERES} atual={mensagem.length} />
+                                </div>
+                                <button type="submit" data-te-ripple-init data-te-ripple-color="light"
                                     className="bg-slate-300 mb-6 inline-block w-full rounded bg-primary px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-black shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
                                     Enviar
                                 </button>
                             </form>
+                            {mostrarMensagem && (
+                                <span className="block text-center bg-green-100 border border-green-400 text-green-700 font-bold px-4 py-2 rounded text-base">
+                                    {mostrarMensagem}
+                                </span>
+                            )}
                         </div>
                         <div className="w-full shrink-0 grow-0 basis-auto lg:w-7/12">
                             <div className="flex flex-wrap">
